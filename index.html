@@ -275,7 +275,7 @@
 </main>
 
 <footer>
-  <div class="wrap">© <span id="year"></span> Kkang 서랍 보관소</div>
+  <div class="wrap">© <span id="year"></span> Kkang 서랍 보관소 · <a href="admin.html">관리</a></div>
 </footer>
 
 <dialog id="reader">
@@ -287,7 +287,10 @@
   <div class="body" id="rBody"></div>
 </dialog>
 
-<script src="posts.js"></script>
+<script>
+  // 새 글이 바로 보이도록 글 목록(posts.js)은 매번 새로 받아 옵니다
+  document.write('<script src="posts.js?v=' + Date.now() + '"><\/script>');
+</script>
 <script>
   // 서랍 목록. 서랍을 늘리려면 여기에 한 줄을 추가하고 posts.js 의 drawer 값에 같은 이름을 쓰면 됩니다.
   const DRAWERS = [
