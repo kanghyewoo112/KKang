@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kkang 서랍 보관소</title>
+<meta name="description" content="업무, 가족, 취미, AI. 관심 있는 것들을 서랍마다 모아 두는 Kkang의 보관소입니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3efe6;
+    --card: #fffdf8;
+    --ink: #23211e;
+    --muted: #6d665c;
+    --line: #d9d1c1;
+    --tomato: #e4572e;
+    --mustard: #f0b429;
+    --blue: #2f5d8a;
+    --sage: #8fae8b;
+    --pink: #f1c6c0;
+    --kraft: #c9a97c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(rgba(35,33,30,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(35,33,30,.035) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--ink);
+    font-family: "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    line-height: 1.75;
+    word-break: keep-all;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+  .serif { font-family: "Gowun Batang", serif; }
+  .pen { font-family: "Nanum Pen Script", cursive; }
+
+  /* 공통 꼴라주 조각 */
+  .tape {
+    position: absolute; width: 92px; height: 26px;
+    background: rgba(240,180,41,.62);
+    box-shadow: 0 1px 2px rgba(0,0,0,.08);
+  }
+  .tape.blue { background: rgba(47,93,138,.38); }
+  .tape.pink { background: rgba(228,87,46,.34); }
+
+  /* 상단 메뉴 */
+  header { padding: 18px 0; }
+  nav { display: flex; align-items: center; gap: 22px; }
+  .logo {
+    margin-right: auto; text-decoration: none; font-weight: 700;
+    background: var(--ink); color: var(--paper);
+    padding: 4px 14px; transform: rotate(-1.5deg);
+  }
+  nav a.link { text-decoration: none; font-size: .93rem; border-bottom: 2px solid transparent; }
+  nav a.link:hover { border-color: var(--tomato); }
+
+  /* 첫 화면 */
+  .hero { position: relative; padding: 56px 0 96px; min-height: 520px; }
+  .hero-text { position: relative; z-index: 3; max-width: 520px; }
+  .kicker { font-size: 1.7rem; color: var(--tomato); transform: rotate(-2deg); display: inline-block; }
+  h1 {
+    font-family: "Gowun Batang", serif; font-weight: 700;
+    font-size: clamp(2.6rem, 8vw, 4.8rem); line-height: 1.12; margin: 6px 0 24px;
+  }
+  h1 span { display: inline-block; }
+  h1 .hl { background: var(--mustard); padding: 0 12px; transform: rotate(-1.2deg); }
+  .intro {
+    position: relative; background: var(--card); padding: 26px 26px 22px;
+    box-shadow: 4px 6px 0 rgba(35,33,30,.12); transform: rotate(.6deg);
+    max-width: 440px;
+  }
+  .intro .tape { top: -13px; left: 34px; transform: rotate(-4deg); }
+  .intro p + p { margin-top: 8px; color: var(--muted); font-size: .95rem; }
+
+  /* 첫 화면 오른쪽 꼴라주 */
+  .collage { position: absolute; right: 0; top: 20px; width: 430px; height: 480px; z-index: 1; }
+  .collage > * { position: absolute; }
+  .c-block { right: 30px; top: 30px; width: 250px; height: 320px; background: var(--blue); transform: rotate(4deg); }
+  .c-dots {
+    right: 190px; top: 0; width: 190px; height: 190px; border-radius: 50%;
+    background-color: var(--pink);
+    background-image: radial-gradient(rgba(35,33,30,.35) 1.6px, transparent 1.8px);
+    background-size: 11px 11px;
+  }
+  .c-torn {
+    right: 0; top: 190px; width: 300px; height: 130px; background: var(--kraft);
+    transform: rotate(-5deg);
+    clip-path: polygon(0 8%, 6% 0, 14% 7%, 23% 1%, 33% 8%, 44% 2%, 56% 9%, 67% 1%, 78% 7%, 89% 2%, 100% 9%, 100% 92%, 91% 100%, 80% 93%, 69% 99%, 57% 92%, 45% 100%, 34% 93%, 22% 99%, 11% 92%, 0 100%);
+  }
+  .c-photo {
+    right: 70px; top: 80px; width: 190px; padding: 12px 12px 40px; background: var(--card);
+    box-shadow: 3px 5px 0 rgba(35,33,30,.18); transform: rotate(-6deg);
+  }
+  .c-photo div { height: 170px; background: var(--sage); display: grid; place-items: center; font-size: 4.4rem; }
+  .c-photo span { position: absolute; left: 0; right: 0; bottom: 6px; text-align: center; font-size: 1.35rem; }
+  .c-stamp {
+    right: 250px; top: 290px; width: 118px; height: 118px; border-radius: 50%;
+    border: 3px double var(--tomato); color: var(--tomato);
+    display: grid; place-items: center; text-align: center;
+    font-size: .74rem; font-weight: 700; letter-spacing: .12em; line-height: 1.5;
+    transform: rotate(-14deg); background: rgba(243,239,230,.85);
+  }
+  .c-strip { right: 20px; top: 372px; background: var(--ink); color: var(--paper); padding: 3px 14px; font-size: .82rem; letter-spacing: .2em; transform: rotate(3deg); }
+  .c-circle { right: 10px; top: 400px; width: 74px; height: 74px; border-radius: 50%; background: var(--tomato); }
+
+  /* 섹션 공통 */
+  section { padding: 56px 0; }
+  .sec-title { display: flex; align-items: baseline; gap: 14px; margin-bottom: 30px; flex-wrap: wrap; }
+  h2 { font-family: "Gowun Batang", serif; font-size: 1.9rem; }
+  h2 span { background: linear-gradient(transparent 58%, var(--pink) 58%); padding: 0 4px; }
+  .sec-title p { color: var(--muted); font-size: .95rem; }
+
+  /* 서랍 */
+  .drawers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .drawer {
+    position: relative; border: 2px solid var(--ink); background: var(--c);
+    padding: 20px 16px 54px; text-align: left;
+    box-shadow: 5px 5px 0 var(--ink);
+    transition: transform .18s, box-shadow .18s;
+  }
+  .drawer:nth-child(odd) { transform: rotate(-1.2deg); }
+  .drawer:nth-child(even) { transform: rotate(1deg); }
+  .drawer:hover, .drawer.on { transform: translate(-3px, -5px) rotate(0); box-shadow: 9px 10px 0 var(--ink); }
+  .drawer .label {
+    display: inline-block; background: var(--card); border: 1.5px solid var(--ink);
+    padding: 1px 12px; font-weight: 700; font-size: 1.05rem;
+  }
+  .drawer .desc { display: block; margin-top: 12px; font-size: .88rem; line-height: 1.55; }
+  .drawer .count { position: absolute; right: 14px; top: 18px; font-size: 1.5rem; }
+  .drawer::after {
+    content: ""; position: absolute; left: 50%; bottom: 18px; width: 58px; height: 14px;
+    transform: translateX(-50%); border: 2px solid var(--ink); border-radius: 999px; background: var(--card);
+  }
+  .drawer.light { color: var(--ink); }
+  .drawer.dark { color: #fff; }
+  .drawer.dark .label { color: var(--ink); }
+
+  /* 글 목록 */
+  .filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+  .chip { border: 1.5px solid var(--ink); background: transparent; padding: 3px 16px; border-radius: 999px; font-size: .9rem; }
+  .chip.on { background: var(--ink); color: var(--paper); }
+  .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 34px 26px; }
+  .post {
+    position: relative; background: var(--card); padding: 30px 22px 22px; text-align: left; border: 0;
+    box-shadow: 3px 5px 0 rgba(35,33,30,.14);
+    transition: transform .18s;
+  }
+  .post:nth-child(3n+1) { transform: rotate(-1deg); }
+  .post:nth-child(3n+2) { transform: rotate(.8deg); }
+  .post:nth-child(3n) { transform: rotate(-.4deg); }
+  .post:hover { transform: rotate(0) translateY(-5px); }
+  .post .tape { top: -12px; left: 50%; margin-left: -46px; transform: rotate(-3deg); }
+  .post:nth-child(even) .tape { transform: rotate(4deg); }
+  .post img { width: 100%; height: 170px; object-fit: cover; margin-bottom: 14px; display: block; }
+  .badge { display: inline-block; background: var(--c); padding: 0 10px; font-size: .78rem; font-weight: 700; }
+  .badge.dark { color: #fff; }
+  .post h3 { font-family: "Gowun Batang", serif; font-size: 1.22rem; line-height: 1.4; margin: 10px 0 6px; }
+  .post p { color: var(--muted); font-size: .92rem; }
+  .post time, dialog time { display: block; margin-top: 14px; font-size: .8rem; color: var(--muted); letter-spacing: .06em; }
+  .empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 40px 0; font-size: 1.5rem; }
+
+  /* 글 읽기 창 */
+  dialog {
+    margin: auto; width: min(680px, calc(100vw - 32px)); max-height: 86vh; overflow-y: auto;
+    border: 2px solid var(--ink); background: var(--card); color: var(--ink);
+    padding: 36px 32px 32px; box-shadow: 8px 8px 0 var(--ink);
+  }
+  dialog::backdrop { background: rgba(35,33,30,.55); }
+  dialog h3 { font-family: "Gowun Batang", serif; font-size: 1.7rem; line-height: 1.35; margin: 12px 0 0; }
+  dialog time { margin: 6px 0 22px; padding-bottom: 18px; border-bottom: 1px dashed var(--line); }
+  dialog img { width: 100%; margin-bottom: 20px; }
+  dialog .body p + p { margin-top: 14px; }
+  .close { position: absolute; right: 14px; top: 12px; border: 0; background: none; font-size: 1.5rem; line-height: 1; padding: 4px 8px; }
+
+  /* 소개 */
+  .about { position: relative; background: var(--ink); color: var(--paper); padding: 44px 40px; transform: rotate(-.5deg); }
+  .about .tape { top: -13px; right: 60px; transform: rotate(5deg); }
+  .about h2 { color: var(--mustard); margin-bottom: 14px; }
+  .about p { max-width: 36em; }
+  .about p + p { margin-top: 10px; opacity: .8; }
+  .about .sign { margin-top: 20px; font-size: 1.9rem; color: var(--pink); opacity: 1; }
+
+  footer { padding: 36px 0 56px; text-align: center; color: var(--muted); font-size: .86rem; }
+
+  @media (max-width: 860px) {
+    .collage { position: relative; width: 100%; max-width: 430px; height: 440px; margin: 30px auto 0; top: 0; }
+    .hero { padding-bottom: 40px; }
+    .drawers { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    nav a.link { display: none; }
+    .collage { transform: scale(.78); transform-origin: top center; height: 350px; }
+    .about { padding: 36px 24px; }
+    dialog { padding: 34px 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a class="logo serif" href="#top">Kkang 서랍 보관소</a>
+    <a class="link" href="#drawers">서랍</a>
+    <a class="link" href="#posts">글</a>
+    <a class="link" href="#about">소개</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <div class="wrap hero">
+    <div class="hero-text">
+      <span class="kicker pen">차곡차곡, 하나씩</span>
+      <h1><span>Kkang</span><br><span class="hl">서랍</span> <span>보관소</span></h1>
+      <div class="intro">
+        <i class="tape"></i>
+        <p>정부 연구소에서 일하는 연구원입니다. 늘 새로운 것에 관심을 두고, 배우고 도전하는 일을 좋아합니다.</p>
+        <p>일하며 배운 것, 가족과의 시간, 취미, 그리고 AI. 마음이 가는 것들을 서랍마다 넣어 둡니다.</p>
+      </div>
+    </div>
+
+    <div class="collage" aria-hidden="true">
+      <div class="c-dots"></div>
+      <div class="c-block"></div>
+      <div class="c-torn"></div>
+      <div class="c-photo"><div>🗄️</div><span class="pen">오늘의 서랍</span></div>
+      <div class="c-stamp">KKANG<br>ARCHIVE<br>SINCE 2026</div>
+      <div class="c-strip">LEARN · TRY · KEEP</div>
+      <div class="c-circle"></div>
+    </div>
+  </div>
+
+  <section id="drawers">
+    <div class="wrap">
+      <div class="sec-title">
+        <h2><span>서랍 열기</span></h2>
+        <p>서랍을 누르면 그 안의 글만 모아 볼 수 있습니다.</p>
+      </div>
+      <div class="drawers" id="drawerList"></div>
+    </div>
+  </section>
+
+  <section id="posts">
+    <div class="wrap">
+      <div class="sec-title">
+        <h2><span>보관한 글</span></h2>
+        <p id="postInfo"></p>
+      </div>
+      <div class="filter" id="filter"></div>
+      <div class="posts" id="postList"></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="about">
+        <i class="tape pink"></i>
+        <h2>이 보관소는</h2>
+        <p>연구원으로 일하면서, 궁금한 것이 생기면 일단 배워 보고 해 보는 사람의 기록장입니다.</p>
+        <p>완성된 글이 아니어도 괜찮다는 마음으로, 관심 가는 것들을 하나씩 적어 서랍에 넣어 둡니다.</p>
+        <p class="sign pen">— Kkang</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> Kkang 서랍 보관소</div>
+</footer>
+
+<dialog id="reader">
+  <button class="close" type="button" aria-label="닫기">✕</button>
+  <span class="badge" id="rBadge"></span>
+  <h3 id="rTitle"></h3>
+  <time id="rDate"></time>
+  <img id="rImg" alt="" hidden>
+  <div class="body" id="rBody"></div>
+</dialog>
+
+<script src="posts.js"></script>
+<script>
+  // 서랍 목록. 서랍을 늘리려면 여기에 한 줄을 추가하고 posts.js 의 drawer 값에 같은 이름을 쓰면 됩니다.
+  const DRAWERS = [
+    { name: "업무", desc: "연구하고 일하며 배운 것", color: "var(--blue)",    dark: true  },
+    { name: "가족", desc: "함께한 시간의 기록",       color: "var(--pink)",    dark: false },
+    { name: "취미", desc: "좋아서 하는 것들",         color: "var(--sage)",    dark: false },
+    { name: "AI",   desc: "새로 배우고 써 본 것",     color: "var(--mustard)", dark: false }
+  ];
+  const TAPES = ["", "blue", "pink"];
+  const posts = (typeof POSTS !== "undefined" ? POSTS : []).slice()
+    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+
+  const $ = id => document.getElementById(id);
+  const el = (tag, cls, text) => {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  };
+  const drawerOf = name => DRAWERS.find(d => d.name === name) || { name, color: "var(--line)", dark: false };
+  const fmtDate = d => String(d || "").replace(/-/g, ".");
+  let current = "전체";
+
+  function badge(target, name) {
+    const d = drawerOf(name);
+    target.textContent = name;
+    target.className = "badge" + (d.dark ? " dark" : "");
+    target.style.setProperty("--c", d.color);
+  }
+
+  function renderDrawers() {
+    const box = $("drawerList");
+    box.replaceChildren();
+    DRAWERS.forEach(d => {
+      const b = el("button", "drawer " + (d.dark ? "dark" : "light") + (current === d.name ? " on" : ""));
+      b.type = "button";
+      b.style.setProperty("--c", d.color);
+      b.append(
+        el("span", "label serif", d.name),
+        el("span", "count pen", posts.filter(p => p.drawer === d.name).length + "개"),
+        el("span", "desc", d.desc)
+      );
+      b.addEventListener("click", () => { select(d.name); $("posts").scrollIntoView(); });
+      box.append(b);
+    });
+  }
+
+  function renderFilter() {
+    const box = $("filter");
+    box.replaceChildren();
+    ["전체", ...DRAWERS.map(d => d.name)].forEach(name => {
+      const b = el("button", "chip" + (current === name ? " on" : ""), name);
+      b.type = "button";
+      b.addEventListener("click", () => select(name));
+      box.append(b);
+    });
+  }
+
+  function renderPosts() {
+    const box = $("postList");
+    box.replaceChildren();
+    const list = posts.filter(p => current === "전체" || p.drawer === current);
+    $("postInfo").textContent = current + " · " + list.length + "개의 글";
+    if (!list.length) {
+      box.append(el("p", "empty pen", "이 서랍은 아직 비어 있어요."));
+      return;
+    }
+    list.forEach((p, i) => {
+      const card = el("button", "post");
+      card.type = "button";
+      card.append(el("i", "tape " + TAPES[i % TAPES.length]));
+      if (p.image) {
+        const img = el("img");
+        img.src = p.image; img.alt = "";
+        card.append(img);
+      }
+      const b = el("span");
+      badge(b, p.drawer);
+      card.append(b, el("h3", "", p.title), el("p", "", p.summary), el("time", "", fmtDate(p.date)));
+      card.addEventListener("click", () => openPost(p));
+      box.append(card);
+    });
+  }
+
+  function select(name) {
+    current = name;
+    renderDrawers(); renderFilter(); renderPosts();
+  }
+
+  function openPost(p) {
+    badge($("rBadge"), p.drawer);
+    $("rTitle").textContent = p.title;
+    $("rDate").textContent = fmtDate(p.date);
+    const img = $("rImg");
+    img.hidden = !p.image;
+    if (p.image) img.src = p.image;
+    const body = $("rBody");
+    body.replaceChildren();
+    String(p.body || p.summary || "").trim().split(/\n\s*\n/).forEach(par => {
+      const e = el("p", "", par.trim());
+      e.style.whiteSpace = "pre-line";
+      body.append(e);
+    });
+    $("reader").showModal();
+  }
+
+  const reader = $("reader");
+  reader.querySelector(".close").addEventListener("click", () => reader.close());
+  reader.addEventListener("click", e => { if (e.target === reader) reader.close(); });
+
+  $("year").textContent = new Date().getFullYear();
+  select("전체");
+</script>
+</body>
+</html>
