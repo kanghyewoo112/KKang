@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kkang 서랍 보관소</title>
-<meta name="description" content="창업, 가족, 취미, AI, 재테크. 배우고 해 본 것들을 서랍마다 모아 두는 Kkang의 보관소입니다.">
+<meta name="description" content="하루 한 방울, 나를 기록하다. AI, 가족, 창업, 재테크, 좋아하는 것들을 매일 남기는 KKang Drop.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -79,6 +79,7 @@
     max-width: 440px;
   }
   .intro .tape { top: -13px; left: 34px; transform: rotate(-4deg); }
+  .intro .lead { font-weight: 700; font-size: 1.2rem; }
   .intro p + p { margin-top: 8px; color: var(--muted); font-size: .95rem; }
 
   /* 첫 화면 오른쪽 꼴라주 */
@@ -109,7 +110,7 @@
     font-size: .74rem; font-weight: 700; letter-spacing: .12em; line-height: 1.5;
     transform: rotate(-14deg); background: rgba(243,239,230,.85);
   }
-  .c-strip { right: 20px; top: 372px; background: var(--ink); color: var(--paper); padding: 3px 14px; font-size: .82rem; letter-spacing: .2em; transform: rotate(3deg); }
+  .c-strip { right: 20px; top: 372px; background: var(--ink); color: var(--paper); padding: 3px 14px; font-size: .78rem; letter-spacing: .12em; white-space: nowrap; transform: rotate(3deg); z-index: 1; }
   .c-circle { right: 10px; top: 400px; width: 74px; height: 74px; border-radius: 50%; background: var(--tomato); }
 
   /* 섹션 공통 */
@@ -192,10 +193,12 @@
   /* 소개 */
   .about { position: relative; background: var(--ink); color: var(--paper); padding: 44px 40px; transform: rotate(-.5deg); }
   .about .tape { top: -13px; right: 60px; transform: rotate(5deg); }
-  .about h2 { color: var(--mustard); margin-bottom: 14px; }
+  .about h2 { color: var(--mustard); margin: 30px 0 14px; }
   .about p { max-width: 36em; }
-  .about p + p { margin-top: 10px; opacity: .8; }
-  .about .sign { margin-top: 20px; font-size: 1.9rem; color: var(--pink); opacity: 1; }
+  .about p + p { margin-top: 14px; }
+  .about .en { margin-top: 26px; font-family: "Gowun Batang", serif; letter-spacing: .04em; color: var(--pink); }
+  .about .big { margin-top: 26px; font-family: "Gowun Batang", serif; font-weight: 700; font-size: 1.35rem; color: var(--mustard); }
+  .about .sign { margin-top: 6px; font-size: 1.9rem; color: var(--pink); }
 
   footer { padding: 36px 0 56px; text-align: center; color: var(--muted); font-size: .86rem; }
 
@@ -227,12 +230,12 @@
 
   <div class="wrap hero">
     <div class="hero-text">
-      <span class="kicker pen">차곡차곡, 하나씩</span>
+      <span class="kicker pen">One Drop a Day, One Story at a Time.</span>
       <h1><span>Kkang</span><br><span class="hl">서랍</span> <span>보관소</span></h1>
       <div class="intro">
         <i class="tape"></i>
-        <p>낮에는 정부 연구소의 연구원, 그 밖의 시간에는 궁금한 것을 그냥 지나치지 못하는 사람입니다.</p>
-        <p>배우고, 해 보고, 남겨 둡니다. 창업의 꿈, 가족과의 하루, 좋아서 하는 취미, AI, 그리고 재테크까지. 서랍을 하나씩 채워 가는 중입니다.</p>
+        <p class="lead serif">하루 한 방울, 나를 기록하다.</p>
+        <p>AI를 배우고,<br>가족과의 순간을 담고,<br>새로운 창업을 꿈꾸고,<br>더 나은 미래를 위해 재테크를 공부하고,<br>좋아하는 것들을 즐깁니다.</p>
       </div>
     </div>
 
@@ -242,7 +245,7 @@
       <div class="c-torn"></div>
       <div class="c-photo"><div>🗄️</div><span class="pen">오늘의 서랍</span></div>
       <div class="c-stamp">KKANG<br>ARCHIVE<br>SINCE 2026</div>
-      <div class="c-strip">LEARN · TRY · KEEP</div>
+      <div class="c-strip">AI · FAMILY · STARTUP · MONEY · LIFE</div>
       <div class="c-circle"></div>
     </div>
   </div>
@@ -272,11 +275,13 @@
     <div class="wrap">
       <div class="about">
         <i class="tape pink"></i>
-        <h2>이 보관소는</h2>
-        <p>서랍은 닫아 두면 잊히지만, 열어 보면 그때의 내가 그대로 들어 있습니다.</p>
-        <p>이곳은 새로운 것을 만나면 일단 배워 보고 부딪쳐 보는 한 연구원의 기록장입니다. 잘 정리된 결과보다 서툰 첫 시도를 더 아끼는 마음으로 씁니다.</p>
-        <p>오늘 넣어 둔 한 줄이 언젠가 다시 꺼내 볼 이유가 되기를 바라며, 하루에 하나씩 채워 갑니다.</p>
-        <p class="sign pen">— Kkang</p>
+        <p>대단한 기록이 아니어도 괜찮습니다.<br>오늘 새롭게 알게 된 것,<br>문득 떠오른 생각,<br>오래 기억하고 싶은 순간 하나를<br>매일 이곳에 남깁니다.</p>
+        <h2>Small Drops. Big Changes.</h2>
+        <p>작은 생각 한 방울이 경험이 되고,<br>그 경험들이 쌓여<br>결국 나만의 이야기가 됩니다.</p>
+        <p>배우고, 꿈꾸고, 사랑하고, 즐기며<br>조금씩 더 나은 내가 되어가는 공간.</p>
+        <p class="en">This is my archive.<br>This is my journey.<br>This is KKang Drop.</p>
+        <p class="big">오늘의 한 방울이, 내일의 나를 만든다.</p>
+        <p class="sign pen">A Drop Today, A Better Me Tomorrow.</p>
       </div>
     </div>
   </section>
