@@ -1,18 +1,9 @@
 /*
   Kkang 서랍 보관소 · 글 목록
   이 파일은 관리 화면(admin.html)에서 저장할 때마다 새로 만들어집니다.
-  직접 고칠 때는 drawer, no, title, date, summary, body, image 항목의 모양을 그대로 지켜 주세요.
+  직접 고칠 때는 drawer, no, title, date, summary, body, images 항목의 모양을 그대로 지켜 주세요.
 */
 const POSTS = [
-  {
-    "drawer": "가족",
-    "title": "첫 대회의 추억",
-    "date": "2026-10-11",
-    "summary": "26년 5월 첫 하키 대회",
-    "body": "첫대회 축하해",
-    "image": "images/1791706279808.jpg",
-    "no": 2
-  },
   {
     "drawer": "AI",
     "no": 2,
