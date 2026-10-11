@@ -186,7 +186,8 @@
   dialog::backdrop { background: rgba(35,33,30,.55); }
   dialog h3 { font-family: "Gowun Batang", serif; font-size: 1.7rem; line-height: 1.35; margin: 12px 0 0; }
   dialog time { margin: 6px 0 22px; padding-bottom: 18px; border-bottom: 1px dashed var(--line); }
-  dialog img { width: 100%; margin-bottom: 20px; }
+  dialog img { display: block; width: 100%; margin-bottom: 14px; }
+  #rImgs:not(:empty) { margin-bottom: 22px; }
   dialog .body p + p { margin-top: 14px; }
   .close { position: absolute; right: 14px; top: 12px; border: 0; background: none; font-size: 1.5rem; line-height: 1; padding: 4px 8px; }
 
@@ -297,7 +298,7 @@
   <span class="badge" id="rBadge"></span>
   <h3 id="rTitle"></h3>
   <time id="rDate"></time>
-  <img id="rImg" alt="" hidden>
+  <div id="rImgs"></div>
   <div class="body" id="rBody"></div>
 </dialog>
 
@@ -337,6 +338,8 @@
   };
   const drawerOf = name => DRAWERS.find(d => d.name === name) || { name, color: "var(--line)", dark: false };
   const fmtDate = d => String(d || "").replace(/-/g, ".");
+  // 사진 목록. 예전 글의 사진 한 장(image)도 함께 읽습니다.
+  const imagesOf = p => Array.isArray(p.images) ? p.images : (p.image ? [p.image] : []);
   let current = "전체";
 
   function badge(target, name) {
@@ -390,14 +393,16 @@
       const num = el("span", "num" + (d.dark ? " dark" : ""), "No." + p.no);
       num.style.setProperty("--c", d.color);
       card.append(num, el("i", "tape " + TAPES[i % TAPES.length]));
-      if (p.image) {
+      const imgs = imagesOf(p);
+      if (imgs.length) {
         const img = el("img");
-        img.src = p.image; img.alt = "";
+        img.src = imgs[0]; img.alt = ""; img.loading = "lazy";
         card.append(img);
       }
       const b = el("span");
       badge(b, p.drawer);
-      card.append(b, el("h3", "", p.title), el("p", "", p.summary), el("time", "", fmtDate(p.date)));
+      const when = fmtDate(p.date) + (imgs.length > 1 ? " · 사진 " + imgs.length + "장" : "");
+      card.append(b, el("h3", "", p.title), el("p", "", p.summary), el("time", "", when));
       card.addEventListener("click", () => openPost(p));
       box.append(card);
     });
@@ -413,9 +418,13 @@
     $("rBadge").textContent = p.drawer + " · No." + p.no;
     $("rTitle").textContent = p.title;
     $("rDate").textContent = fmtDate(p.date);
-    const img = $("rImg");
-    img.hidden = !p.image;
-    if (p.image) img.src = p.image;
+    const gallery = $("rImgs");
+    gallery.replaceChildren();
+    imagesOf(p).forEach(src => {
+      const img = el("img");
+      img.src = src; img.alt = "";
+      gallery.append(img);
+    });
     const body = $("rBody");
     body.replaceChildren();
     String(p.body || p.summary || "").trim().split(/\n\s*\n/).forEach(par => {

@@ -69,8 +69,14 @@
   .item .btns { display: flex; gap: 8px; flex-shrink: 0; }
   .empty { text-align: center; color: var(--muted); padding: 30px 0; }
 
-  .preview { margin-top: 10px; display: flex; align-items: center; gap: 12px; }
-  .preview img { width: 120px; height: 80px; object-fit: cover; border: 1.5px solid var(--ink); }
+  .preview { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 14px; }
+  .thumb { position: relative; }
+  .thumb img { display: block; width: 120px; height: 80px; object-fit: cover; border: 1.5px solid var(--ink); background: var(--line); }
+  .thumb button {
+    position: absolute; right: -9px; top: -9px; width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid var(--ink); background: var(--card); font-size: .75rem; line-height: 1; padding: 0;
+  }
+  .thumb button:hover { background: var(--tomato); color: #fff; }
 
   #status { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); max-width: calc(100vw - 32px);
     background: var(--ink); color: var(--paper); padding: 10px 20px; font-size: .92rem; box-shadow: 4px 4px 0 rgba(0,0,0,.2); z-index: 5; }
@@ -145,12 +151,9 @@
       <input type="text" id="fSummary" maxlength="200">
       <label for="fBody">본문 <small>빈 줄을 넣으면 문단이 나뉩니다</small></label>
       <textarea id="fBody"></textarea>
-      <label for="fImage">사진 <small>선택 사항</small></label>
-      <input type="file" id="fImage" accept="image/*">
-      <div class="preview" id="preview" hidden>
-        <img id="previewImg" alt="">
-        <button class="btn small" id="removeImg" type="button">사진 빼기</button>
-      </div>
+      <label for="fImage">사진 <small>선택 사항 · 여러 장을 한꺼번에 고를 수 있고, 첫 번째 사진이 목록의 대표 사진이 됩니다</small></label>
+      <input type="file" id="fImage" accept="image/*" multiple>
+      <div class="preview" id="preview"></div>
       <div class="actions">
         <button class="btn primary" id="saveBtn" type="submit">저장하고 올리기</button>
         <button class="btn" id="cancelBtn" type="button">취소</button>
@@ -183,8 +186,8 @@
   let posts = [];      // 저장소의 글 목록
   let sha = null;      // posts.js 의 현재 판 번호 (덮어쓰기 충돌 방지)
   let editing = -1;    // 수정 중인 글 번호. 새 글이면 -1
-  let imagePath = "";  // 수정 중인 글에 붙은 사진 경로
-  let newImage = null; // 새로 고른 사진 { base64, dataUrl }
+  let images = [];     // 수정 중인 글의 사진들. 이미 올린 것은 { path }, 새로 고른 것은 { base64, dataUrl }
+  const uploaded = {}; // 방금 올린 사진의 미리보기 (홈페이지에 반영되기 전에도 보이도록)
 
   /* ── 알림 ── */
   let statusTimer;
@@ -242,7 +245,7 @@
     return "/*\n" +
       "  Kkang 서랍 보관소 · 글 목록\n" +
       "  이 파일은 관리 화면(admin.html)에서 저장할 때마다 새로 만들어집니다.\n" +
-      "  직접 고칠 때는 drawer, no, title, date, summary, body, image 항목의 모양을 그대로 지켜 주세요.\n" +
+      "  직접 고칠 때는 drawer, no, title, date, summary, body, images 항목의 모양을 그대로 지켜 주세요.\n" +
       "*/\n" +
       "const POSTS = " + JSON.stringify(posts, null, 2) + ";\n";
   }
@@ -309,9 +312,20 @@
     const d = new Date();
     return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   }
-  function showPreview(src) {
-    $("preview").hidden = !src;
-    if (src) $("previewImg").src = src;
+  function renderPreview() {
+    const box = $("preview");
+    box.replaceChildren();
+    images.forEach((im, i) => {
+      const wrap = document.createElement("div"); wrap.className = "thumb";
+      const img = document.createElement("img");
+      img.alt = "사진 " + (i + 1);
+      img.src = im.dataUrl || uploaded[im.path] || im.path;
+      const x = document.createElement("button");
+      x.type = "button"; x.textContent = "✕"; x.setAttribute("aria-label", "사진 " + (i + 1) + " 빼기");
+      x.addEventListener("click", () => { images.splice(i, 1); renderPreview(); });
+      wrap.append(img, x);
+      box.append(wrap);
+    });
   }
   function openEditor(index) {
     editing = index;
@@ -323,8 +337,8 @@
     $("fSummary").value = p.summary || "";
     $("fBody").value = p.body || "";
     $("fImage").value = "";
-    imagePath = p.image || ""; newImage = null;
-    showPreview(imagePath);
+    images = (Array.isArray(p.images) ? p.images : (p.image ? [p.image] : [])).map(path => ({ path }));
+    renderPreview();
     show("editView");
     $("fTitle").focus();
   }
@@ -347,13 +361,13 @@
     });
   }
   $("fImage").addEventListener("change", async e => {
-    const file = e.target.files[0];
-    if (!file) return;
-    try { newImage = await readImage(file); showPreview(newImage.dataUrl); }
-    catch (err) { newImage = null; e.target.value = ""; say(err.message, true); }
-  });
-  $("removeImg").addEventListener("click", () => {
-    imagePath = ""; newImage = null; $("fImage").value = ""; showPreview("");
+    const files = Array.from(e.target.files);
+    e.target.value = "";
+    for (const file of files) {
+      try { images.push(await readImage(file)); }
+      catch (err) { say("'" + file.name + "' " + err.message, true); }
+    }
+    renderPreview();
   });
 
   function busy(on) {
@@ -365,14 +379,19 @@
     const before = posts.slice();
     busy(true);
     try {
-      if (newImage) {
-        say("사진을 올리는 중입니다…");
-        const path = "images/" + Date.now() + ".jpg";
+      // 새로 고른 사진을 한 장씩 차례로 올립니다 (중간에 실패해도 이미 올린 사진은 다시 올리지 않습니다)
+      const total = images.filter(im => !im.path).length;
+      let done = 0;
+      for (const im of images) {
+        if (im.path) continue;
+        say("사진을 올리는 중입니다… (" + (++done) + "/" + total + ")");
+        const path = "images/" + Date.now() + "-" + done + ".jpg";
         await gh(path, {
           method: "PUT",
-          body: JSON.stringify({ message: "사진 추가", content: newImage.base64, branch: BRANCH })
+          body: JSON.stringify({ message: "사진 추가", content: im.base64, branch: BRANCH })
         });
-        imagePath = path; newImage = null;
+        uploaded[path] = im.dataUrl;
+        im.path = path; delete im.base64; delete im.dataUrl;
       }
       const body = $("fBody").value.trim();
       const post = {
@@ -382,7 +401,7 @@
         summary: $("fSummary").value.trim() || body.split("\n")[0].slice(0, 80),
         body
       };
-      if (imagePath) post.image = imagePath;
+      if (images.length) post.images = images.map(im => im.path);
       // 같은 서랍에서 수정하면 번호를 그대로 두고, 새 글이거나 서랍을 옮기면 그 서랍의 다음 번호를 받습니다
       if (editing >= 0 && posts[editing].drawer === post.drawer) post.no = posts[editing].no;
       say("저장하는 중입니다…");
