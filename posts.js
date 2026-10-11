@@ -5,6 +5,15 @@
 */
 const POSTS = [
   {
+    "drawer": "가족",
+    "title": "첫 대회의 추억",
+    "date": "2026-10-11",
+    "summary": "26년 5월 첫 하키 대회",
+    "body": "첫대회 축하해",
+    "image": "images/1791706279808.jpg",
+    "no": 2
+  },
+  {
     "drawer": "AI",
     "no": 2,
     "title": "처음으로 나만의 홈페이지를 만들었다.",
