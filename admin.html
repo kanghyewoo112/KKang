@@ -170,7 +170,7 @@
 
   // 서랍 목록 (index.html 의 DRAWERS 와 이름을 맞춰 주세요)
   const DRAWERS = [
-    { name: "업무", color: "var(--blue)", dark: true },
+    { name: "창업", color: "var(--blue)", dark: true },
     { name: "가족", color: "var(--pink)" },
     { name: "취미", color: "var(--sage)" },
     { name: "AI",   color: "var(--mustard)" },
@@ -226,11 +226,23 @@
   const fromBase64 = b64 =>
     new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\s/g, "")), c => c.charCodeAt(0)));
 
+  // 서랍별 글 번호. 번호(no)가 없는 글은 그 서랍의 다음 번호를 오래된 글부터 받습니다.
+  function numberPosts(list) {
+    const max = {};
+    list.forEach(p => { if (Number.isInteger(p.no)) max[p.drawer] = Math.max(max[p.drawer] || 0, p.no); });
+    list.map((p, i) => ({ p, i }))
+      .filter(x => !Number.isInteger(x.p.no))
+      .sort((a, b) => String(a.p.date).localeCompare(String(b.p.date)) || b.i - a.i)
+      .forEach(({ p }) => { p.no = max[p.drawer] = (max[p.drawer] || 0) + 1; });
+    return list;
+  }
+
   function serialize() {
+    numberPosts(posts);
     return "/*\n" +
       "  Kkang 서랍 보관소 · 글 목록\n" +
       "  이 파일은 관리 화면(admin.html)에서 저장할 때마다 새로 만들어집니다.\n" +
-      "  직접 고칠 때는 drawer, title, date, summary, body, image 항목의 모양을 그대로 지켜 주세요.\n" +
+      "  직접 고칠 때는 drawer, no, title, date, summary, body, image 항목의 모양을 그대로 지켜 주세요.\n" +
       "*/\n" +
       "const POSTS = " + JSON.stringify(posts, null, 2) + ";\n";
   }
@@ -239,7 +251,7 @@
     const data = await gh(FILE + "?ref=" + BRANCH);
     sha = data.sha;
     const list = new Function(fromBase64(data.content) + "\n;return POSTS;")();
-    posts = Array.isArray(list) ? list : [];
+    posts = numberPosts(Array.isArray(list) ? list : []);
   }
   async function savePosts(message) {
     const res = await gh(FILE, {
@@ -276,7 +288,7 @@
         const badge = document.createElement("span");
         badge.className = "badge" + (d.dark ? " dark" : ""); badge.textContent = p.drawer || "?";
         if (d.color) badge.style.setProperty("--c", d.color);
-        meta.append(badge, String(p.date || "").replace(/-/g, "."));
+        meta.append(badge, "No." + p.no + " · " + String(p.date || "").replace(/-/g, "."));
         info.append(h, meta);
 
         const btns = document.createElement("div"); btns.className = "btns";
@@ -371,6 +383,8 @@
         body
       };
       if (imagePath) post.image = imagePath;
+      // 같은 서랍에서 수정하면 번호를 그대로 두고, 새 글이거나 서랍을 옮기면 그 서랍의 다음 번호를 받습니다
+      if (editing >= 0 && posts[editing].drawer === post.drawer) post.no = posts[editing].no;
       say("저장하는 중입니다…");
       if (editing >= 0) posts[editing] = post; else posts.unshift(post);
       await savePosts((editing >= 0 ? "글 수정: " : "새 글: ") + post.title);
