@@ -4,204 +4,201 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kkang 서랍 보관소</title>
+<meta name="theme-color" content="#070B1A">
 <meta name="description" content="하루 한 방울, 나를 기록하다. AI, 가족, 창업, 재테크, 좋아하는 것들을 매일 남기는 KKang Drop.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #f3efe6;
-    --card: #fffdf8;
-    --ink: #23211e;
-    --muted: #6d665c;
-    --line: #d9d1c1;
-    --tomato: #e4572e;
-    --mustard: #f0b429;
-    --blue: #2f5d8a;
-    --sage: #8fae8b;
-    --pink: #f1c6c0;
-    --kraft: #c9a97c;
+    --bg: #070B1A;
+    --ink: #EAF0FF;
+    --muted: #A3B1D9;
+    --line: rgba(255,255,255,.14);
+    --glass: rgba(255,255,255,.07);
+    --mint: #7CF7D4;
+    --violet: #B58CFF;
+    --blue: #7C98FF;
+    --pink: #FF92CB;
+    --sage: #62E6C2;
+    --mustard: #FFD470;
+    --tomato: #FF8672;
+    --kraft: #BC92FF;
+    --display: "Outfit", "Noto Sans KR", system-ui, sans-serif;
+    --body: "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    --grad: linear-gradient(100deg, #7CF7D4 0%, #7AA2FF 38%, #C58BFF 70%, #FF8AD4 100%);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; background: var(--bg); color-scheme: dark; }
   body {
-    background-color: var(--paper);
-    background-image:
-      linear-gradient(rgba(35,33,30,.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(35,33,30,.035) 1px, transparent 1px);
-    background-size: 28px 28px;
     color: var(--ink);
-    font-family: "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-family: var(--body);
     line-height: 1.75;
     word-break: keep-all;
     overflow-x: hidden;
   }
   a { color: inherit; }
   button { font: inherit; color: inherit; cursor: pointer; }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
-  .serif { font-family: "Gowun Batang", serif; }
-  .pen { font-family: "Nanum Pen Script", cursive; }
+  :focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  .serif { font-family: var(--display); font-weight: 700; }
+  .pen { font-family: var(--display); letter-spacing: .02em; }
+  .tape { display: none; }
 
-  /* 공통 꼴라주 조각 */
-  .tape {
-    position: absolute; width: 92px; height: 26px;
-    background: rgba(240,180,41,.62);
-    box-shadow: 0 1px 2px rgba(0,0,0,.08);
+  /* 오로라 배경 */
+  .aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+    background: radial-gradient(1100px 700px at 15% -10%, #121c44 0%, transparent 62%), var(--bg); }
+  .aurora i { position: absolute; border-radius: 50%; filter: blur(90px); mix-blend-mode: screen; will-change: transform;
+    animation: drift 26s ease-in-out infinite alternate; }
+  .aurora i:nth-child(1) { width: 62vw; height: 62vw; left: -14%; top: -18%; background: #3B6BFF; opacity: .55; }
+  .aurora i:nth-child(2) { width: 52vw; height: 52vw; right: -12%; top: 2%; background: #B45CFF; opacity: .5; animation-duration: 32s; animation-delay: -6s; }
+  .aurora i:nth-child(3) { width: 56vw; height: 56vw; left: 18%; top: 46%; background: #12D6B0; opacity: .32; animation-duration: 38s; animation-delay: -12s; }
+  .aurora i:nth-child(4) { width: 46vw; height: 46vw; right: 2%; bottom: -18%; background: #FF5FB0; opacity: .34; animation-duration: 30s; animation-delay: -3s; }
+  @keyframes drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(6vw, 5vh, 0) scale(1.18); }
   }
-  .tape.blue { background: rgba(47,93,138,.38); }
-  .tape.pink { background: rgba(228,87,46,.34); }
 
   /* 상단 메뉴 */
-  header { padding: 18px 0; }
+  header { position: sticky; top: 0; z-index: 20; padding: 14px 0;
+    background: linear-gradient(180deg, rgba(7,11,26,.78), rgba(7,11,26,.4));
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line); }
   nav { display: flex; align-items: center; gap: 22px; }
-  .logo {
-    margin-right: auto; text-decoration: none; font-weight: 700;
-    background: var(--ink); color: var(--paper);
-    padding: 4px 14px; transform: rotate(-1.5deg);
-  }
-  nav a.link { text-decoration: none; font-size: .93rem; border-bottom: 2px solid transparent; }
-  nav a.link:hover { border-color: var(--tomato); }
+  .logo { margin-right: auto; text-decoration: none; font-weight: 700; color: #0A1020;
+    padding: 6px 18px; border-radius: 999px; background: var(--grad);
+    box-shadow: 0 0 26px rgba(124,247,212,.35); }
+  nav a.link { text-decoration: none; font-size: .93rem; color: var(--muted); padding: 4px 2px;
+    border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
+  nav a.link:hover { color: var(--ink); border-color: var(--mint); }
 
   /* 첫 화면 */
-  .hero { position: relative; padding: 56px 0 96px; min-height: 520px; }
-  .hero-text { position: relative; z-index: 3; max-width: 520px; }
-  .kicker { font-size: 1.7rem; color: var(--tomato); transform: rotate(-2deg); display: inline-block; }
-  h1 {
-    font-family: "Gowun Batang", serif; font-weight: 700;
-    font-size: clamp(2.6rem, 8vw, 4.8rem); line-height: 1.12; margin: 6px 0 24px;
-  }
+  .hero { position: relative; padding: 64px 24px 96px; min-height: 540px; }
+  .hero-text { position: relative; z-index: 3; max-width: 540px; }
+  .kicker { display: inline-block; font-size: .9rem; font-weight: 500; letter-spacing: .06em; color: var(--mint);
+    padding: 4px 16px; border: 1px solid rgba(124,247,212,.38); border-radius: 999px; background: rgba(124,247,212,.08); }
+  h1 { font-family: var(--display); font-weight: 700; letter-spacing: -.01em;
+    font-size: clamp(2.8rem, 8vw, 5rem); line-height: 1.08; margin: 20px 0 28px; }
   h1 span { display: inline-block; }
-  h1 .hl { background: var(--mustard); padding: 0 12px; transform: rotate(-1.2deg); }
-  .intro {
-    position: relative; background: var(--card); padding: 26px 26px 22px;
-    box-shadow: 4px 6px 0 rgba(35,33,30,.12); transform: rotate(.6deg);
-    max-width: 440px;
-  }
-  .intro .tape { top: -13px; left: 34px; transform: rotate(-4deg); }
+  h1 .hl { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .intro { position: relative; max-width: 460px; padding: 26px 26px 22px; border-radius: 24px;
+    background: var(--glass); border: 1px solid var(--line);
+    -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18); }
   .intro .lead { font-weight: 700; font-size: 1.2rem; }
   .intro p + p { margin-top: 8px; color: var(--muted); font-size: .95rem; }
 
-  /* 첫 화면 오른쪽 꼴라주 */
+  /* 첫 화면 오른쪽 오로라 장식 */
   .collage { position: absolute; right: 0; top: 20px; width: 430px; height: 480px; z-index: 1; }
   .collage > * { position: absolute; }
-  .c-block { right: 30px; top: 30px; width: 250px; height: 320px; background: var(--blue); transform: rotate(4deg); }
-  .c-dots {
-    right: 190px; top: 0; width: 190px; height: 190px; border-radius: 50%;
-    background-color: var(--pink);
-    background-image: radial-gradient(rgba(35,33,30,.35) 1.6px, transparent 1.8px);
-    background-size: 11px 11px;
-  }
-  .c-torn {
-    right: 0; top: 190px; width: 300px; height: 130px; background: var(--kraft);
-    transform: rotate(-5deg);
-    clip-path: polygon(0 8%, 6% 0, 14% 7%, 23% 1%, 33% 8%, 44% 2%, 56% 9%, 67% 1%, 78% 7%, 89% 2%, 100% 9%, 100% 92%, 91% 100%, 80% 93%, 69% 99%, 57% 92%, 45% 100%, 34% 93%, 22% 99%, 11% 92%, 0 100%);
-  }
-  .c-photo {
-    right: 70px; top: 80px; width: 190px; padding: 12px 12px 40px; background: var(--card);
-    box-shadow: 3px 5px 0 rgba(35,33,30,.18); transform: rotate(-6deg);
-  }
-  .c-photo div { height: 170px; background: var(--sage); display: grid; place-items: center; font-size: 4.4rem; }
-  .c-photo span { position: absolute; left: 0; right: 0; bottom: 6px; text-align: center; font-size: 1.35rem; }
-  .c-stamp {
-    right: 250px; top: 290px; width: 118px; height: 118px; border-radius: 50%;
-    border: 3px double var(--tomato); color: var(--tomato);
-    display: grid; place-items: center; text-align: center;
-    font-size: .74rem; font-weight: 700; letter-spacing: .12em; line-height: 1.5;
-    transform: rotate(-14deg); background: rgba(243,239,230,.85);
-  }
-  .c-strip { right: 20px; top: 372px; background: var(--ink); color: var(--paper); padding: 3px 14px; font-size: .78rem; letter-spacing: .12em; white-space: nowrap; transform: rotate(3deg); z-index: 1; }
-  .c-circle { right: 10px; top: 400px; width: 74px; height: 74px; border-radius: 50%; background: var(--tomato); }
+  .c-block { right: 30px; top: 30px; width: 280px; height: 280px; border-radius: 50%;
+    background: linear-gradient(135deg, #6C8CFF, #B58CFF 55%, #FF8FC7); filter: blur(46px); opacity: .75; }
+  .c-torn { right: 0; top: 230px; width: 270px; height: 130px; border-radius: 60%;
+    background: linear-gradient(120deg, #62E6C2, #6C8CFF); filter: blur(40px); opacity: .6; }
+  .c-dots { right: 210px; top: 6px; width: 150px; height: 150px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.3);
+    background: radial-gradient(circle at 30% 28%, rgba(255,255,255,.42), rgba(255,255,255,.04) 62%);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .c-photo { right: 70px; top: 90px; width: 200px; padding: 12px 12px 44px; border-radius: 24px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22);
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    box-shadow: 0 24px 60px rgba(0,0,0,.4), 0 0 50px rgba(124,152,255,.3); transform: rotate(-4deg); }
+  .c-photo div { height: 170px; border-radius: 16px; display: grid; place-items: center; font-size: 4.4rem;
+    background: linear-gradient(150deg, rgba(98,230,194,.7), rgba(124,152,255,.65) 55%, rgba(188,146,255,.7)); }
+  .c-photo span { position: absolute; left: 0; right: 0; bottom: 10px; text-align: center; font-size: 1rem; font-weight: 500; }
+  .c-stamp { right: 250px; top: 290px; width: 118px; height: 118px; border-radius: 50%;
+    border: 1.5px dashed rgba(124,247,212,.6); color: var(--mint);
+    display: grid; place-items: center; text-align: center; font-family: var(--display);
+    font-size: .74rem; font-weight: 700; letter-spacing: .14em; line-height: 1.5;
+    background: rgba(124,247,212,.08); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transform: rotate(-12deg); }
+  .c-strip { right: 20px; top: 372px; padding: 4px 16px; border-radius: 999px; font-size: .76rem; letter-spacing: .12em; white-space: nowrap;
+    background: var(--glass); border: 1px solid var(--line); color: var(--ink);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); z-index: 1; }
+  .c-circle { right: 10px; top: 408px; width: 66px; height: 66px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 30%, #fff 0%, #FF92CB 30%, #B58CFF 75%);
+    box-shadow: 0 0 40px rgba(255,146,203,.6); }
 
   /* 섹션 공통 */
-  section { padding: 56px 0; }
+  section { padding: 60px 0; scroll-margin-top: 72px; }
   .sec-title { display: flex; align-items: baseline; gap: 14px; margin-bottom: 30px; flex-wrap: wrap; }
-  h2 { font-family: "Gowun Batang", serif; font-size: 1.9rem; }
-  h2 span { background: linear-gradient(transparent 58%, var(--pink) 58%); padding: 0 4px; }
+  h2 { font-family: var(--display); font-size: 1.9rem; font-weight: 700; }
+  h2 span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .sec-title p { color: var(--muted); font-size: .95rem; }
 
   /* 서랍 */
-  .drawers { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
-  .drawer {
-    position: relative; border: 2px solid var(--ink); background: var(--c);
-    padding: 20px 16px 54px; text-align: left;
-    box-shadow: 5px 5px 0 var(--ink);
-    transition: transform .18s, box-shadow .18s;
-  }
-  .drawer:nth-child(odd) { transform: rotate(-1.2deg); }
-  .drawer:nth-child(even) { transform: rotate(1deg); }
-  .drawer:hover, .drawer.on { transform: translate(-3px, -5px) rotate(0); box-shadow: 9px 10px 0 var(--ink); }
-  .drawer .label {
-    display: inline-block; background: var(--card); border: 1.5px solid var(--ink);
-    padding: 1px 12px; font-weight: 700; font-size: 1.05rem;
-  }
-  .drawer .desc { display: block; margin-top: 12px; font-size: .88rem; line-height: 1.55; }
-  .drawer .count { position: absolute; right: 14px; top: 18px; font-size: 1.5rem; }
-  .drawer::after {
-    content: ""; position: absolute; left: 50%; bottom: 18px; width: 58px; height: 14px;
-    transform: translateX(-50%); border: 2px solid var(--ink); border-radius: 999px; background: var(--card);
-  }
-  .drawer.light { color: var(--ink); }
-  .drawer.dark { color: #fff; }
-  .drawer.dark .label { color: var(--ink); }
+  .drawers { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 18px; }
+  .drawer { position: relative; text-align: left; border-radius: 22px; padding: 20px 18px 58px; color: var(--ink);
+    border: 1px solid rgba(255,255,255,.16);
+    background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,.03));
+    background: linear-gradient(160deg, color-mix(in srgb, var(--c) 34%, transparent), rgba(255,255,255,.04) 72%);
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    box-shadow: 0 14px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.2);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .drawer:hover, .drawer.on { transform: translateY(-6px); border-color: rgba(255,255,255,.4);
+    box-shadow: 0 20px 50px rgba(0,0,0,.45), 0 0 44px rgba(124,152,255,.3); }
+  .drawer .label { display: inline-block; padding: 2px 14px; border-radius: 999px; font-weight: 700; font-size: 1.02rem; color: #fff;
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); }
+  .drawer .desc { display: block; margin-top: 12px; font-size: .88rem; line-height: 1.55; color: #D5DDF5; }
+  .drawer .count { position: absolute; right: 16px; top: 20px; font-size: 1rem; font-weight: 700; color: var(--c); }
+  .drawer::after { content: ""; position: absolute; left: 50%; bottom: 22px; width: 44px; height: 5px; transform: translateX(-50%);
+    border-radius: 999px; background: var(--c); box-shadow: 0 0 14px var(--c); }
 
   /* 글 목록 */
-  .filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
-  .chip { border: 1.5px solid var(--ink); background: transparent; padding: 3px 16px; border-radius: 999px; font-size: .9rem; }
-  .chip.on { background: var(--ink); color: var(--paper); }
-  .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 34px 26px; }
-  .post {
-    position: relative; background: var(--card); padding: 30px 22px 22px; text-align: left; border: 0;
-    box-shadow: 3px 5px 0 rgba(35,33,30,.14);
-    transition: transform .18s;
-  }
-  .post:nth-child(3n+1) { transform: rotate(-1deg); }
-  .post:nth-child(3n+2) { transform: rotate(.8deg); }
-  .post:nth-child(3n) { transform: rotate(-.4deg); }
-  .post:hover { transform: rotate(0) translateY(-5px); }
-  .post .tape { top: -12px; left: 50%; margin-left: -46px; transform: rotate(-3deg); }
-  .post:nth-child(even) .tape { transform: rotate(4deg); }
-  .num {
-    position: absolute; left: -12px; top: -14px; z-index: 1;
-    min-width: 48px; height: 48px; padding: 0 6px; border-radius: 50%;
-    background: var(--c); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
-    display: grid; place-items: center; transform: rotate(-8deg);
-    font-family: "Gowun Batang", serif; font-weight: 700; font-size: .82rem; color: var(--ink);
-  }
-  .num.dark { color: #fff; }
-  .post img { width: 100%; height: 170px; object-fit: cover; margin-bottom: 14px; display: block; }
-  .badge { display: inline-block; background: var(--c); padding: 0 10px; font-size: .78rem; font-weight: 700; }
-  .badge.dark { color: #fff; }
-  .post h3 { font-family: "Gowun Batang", serif; font-size: 1.22rem; line-height: 1.4; margin: 10px 0 6px; }
+  .filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 34px; }
+  .chip { border: 1px solid var(--line); background: var(--glass); color: var(--ink); padding: 5px 18px; border-radius: 999px; font-size: .9rem;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: border-color .2s, background .2s; }
+  .chip:hover { border-color: rgba(255,255,255,.4); }
+  .chip.on { background: var(--grad); color: #0A1020; border-color: transparent; font-weight: 700; }
+  .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 34px 26px; }
+  .post { position: relative; display: block; width: 100%; text-align: left; color: var(--ink);
+    padding: 30px 22px 22px; border-radius: 22px; border: 1px solid rgba(255,255,255,.16);
+    background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,.04));
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    box-shadow: 0 14px 40px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.16);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .post:hover { transform: translateY(-6px); border-color: rgba(255,255,255,.34);
+    box-shadow: 0 24px 60px rgba(0,0,0,.45), 0 0 40px rgba(124,152,255,.2); }
+  .num { position: absolute; left: 18px; top: -13px; z-index: 1; padding: 0 12px; height: 28px; border-radius: 999px;
+    background: var(--c); color: #0A1020; display: grid; place-items: center;
+    font-family: var(--display); font-weight: 700; font-size: .78rem; box-shadow: 0 0 18px var(--c); }
+  .num.dark { color: #0A1020; }
+  .post img { width: 100%; height: 170px; object-fit: cover; margin-bottom: 14px; display: block; border-radius: 14px; }
+  .badge { display: inline-block; background: var(--c); color: #0A1020; padding: 0 12px; border-radius: 999px; font-size: .75rem; font-weight: 700; }
+  .badge.dark { color: #0A1020; }
+  .post h3 { font-size: 1.18rem; font-weight: 700; line-height: 1.4; margin: 12px 0 6px; }
   .post p { color: var(--muted); font-size: .92rem; }
-  .post time, dialog time { display: block; margin-top: 14px; font-size: .8rem; color: var(--muted); letter-spacing: .06em; }
-  .empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 40px 0; font-size: 1.5rem; }
+  .post time, dialog time { display: block; margin-top: 14px; font-size: .8rem; color: var(--muted); letter-spacing: .04em; }
+  .empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 40px 0; font-size: 1.2rem; }
 
   /* 글 읽기 창 */
-  dialog {
-    margin: auto; width: min(680px, calc(100vw - 32px)); max-height: 86vh; overflow-y: auto;
-    border: 2px solid var(--ink); background: var(--card); color: var(--ink);
-    padding: 36px 32px 32px; box-shadow: 8px 8px 0 var(--ink);
-  }
-  dialog::backdrop { background: rgba(35,33,30,.55); }
-  dialog h3 { font-family: "Gowun Batang", serif; font-size: 1.7rem; line-height: 1.35; margin: 12px 0 0; }
+  dialog { margin: auto; width: min(700px, calc(100vw - 32px)); max-height: 86vh; overflow-y: auto;
+    border: 1px solid rgba(255,255,255,.2); border-radius: 26px; color: var(--ink);
+    background: rgba(14,20,46,.9); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+    padding: 38px 32px 32px; box-shadow: 0 30px 90px rgba(0,0,0,.6), 0 0 60px rgba(124,152,255,.22); }
+  dialog::backdrop { background: rgba(4,7,18,.66); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  dialog h3 { font-size: 1.7rem; font-weight: 700; line-height: 1.35; margin: 12px 0 0; }
   dialog time { margin: 6px 0 22px; padding-bottom: 18px; border-bottom: 1px dashed var(--line); }
-  dialog img { display: block; width: 100%; margin-bottom: 14px; }
+  dialog img { display: block; width: 100%; margin-bottom: 14px; border-radius: 14px; }
   #rImgs:not(:empty) { margin-bottom: 22px; }
   dialog .body p + p { margin-top: 14px; }
-  .close { position: absolute; right: 14px; top: 12px; border: 0; background: none; font-size: 1.5rem; line-height: 1; padding: 4px 8px; }
+  .close { position: absolute; right: 14px; top: 12px; width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--line); background: var(--glass); font-size: 1rem; line-height: 1; }
 
   /* 소개 */
-  .about { position: relative; background: var(--ink); color: var(--paper); padding: 44px 40px; transform: rotate(-.5deg); }
-  .about .tape { top: -13px; right: 60px; transform: rotate(5deg); }
-  .about h2 { color: var(--mustard); margin: 30px 0 14px; }
+  .about { position: relative; padding: 48px 40px; border-radius: 28px; border: 1px solid rgba(255,255,255,.18);
+    background: linear-gradient(135deg, rgba(124,152,255,.18), rgba(181,140,255,.1) 50%, rgba(98,230,194,.13));
+    -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+    box-shadow: 0 24px 70px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.2); }
+  .about h2 { margin: 30px 0 14px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .about p { max-width: 36em; }
   .about p + p { margin-top: 14px; }
-  .about .en { margin-top: 26px; font-family: "Gowun Batang", serif; letter-spacing: .04em; color: var(--pink); }
-  .about .big { margin-top: 26px; font-family: "Gowun Batang", serif; font-weight: 700; font-size: 1.35rem; color: var(--mustard); }
-  .about .sign { margin-top: 6px; font-size: 1.9rem; color: var(--pink); }
+  .about .en { margin-top: 26px; font-family: var(--display); letter-spacing: .04em; color: var(--mint); }
+  .about .big { margin-top: 26px; font-weight: 700; font-size: 1.3rem; color: #fff; }
+  .about .sign { margin-top: 6px; font-size: 1.1rem; color: var(--violet); }
 
   footer { padding: 36px 0 56px; text-align: center; color: var(--muted); font-size: .86rem; }
+  footer a { color: var(--mint); }
 
   @media (max-width: 860px) {
     .collage { position: relative; width: 100%; max-width: 430px; height: 440px; margin: 30px auto 0; top: 0; }
@@ -214,9 +211,16 @@
     .about { padding: 36px 24px; }
     dialog { padding: 34px 20px 24px; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .aurora i { animation: none; }
+    .drawer, .post, .chip { transition: none; }
+  }
 </style>
 </head>
 <body>
+
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
 <header>
   <nav class="wrap">
