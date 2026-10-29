@@ -20,15 +20,18 @@
 
   function card(d){
     var mapUrl = 'https://map.naver.com/p/search/' + encodeURIComponent(d.address || d.name);
-    var tags = [d.region, d.program].filter(Boolean).map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join('');
+    var src = esc(d.program) + (d.episode ? ' · ' + esc(d.episode) : '') + (d.date ? ' (' + esc(d.date) + ')' : '');
     return '<article class="card">' +
+      (d.program ? '<span class="sticker">' + esc(d.program) + '</span>' : '') +
       '<h2>' + esc(d.name) + '</h2>' +
-      '<div class="tags">' + tags + '</div>' +
-      '<div class="row"><b>출처</b> ' + esc(d.program) + (d.episode ? ' · ' + esc(d.episode) : '') + (d.date ? ' (' + esc(d.date) + ')' : '') + '</div>' +
-      '<div class="row"><b>위치</b> ' + esc(d.address) + '</div>' +
-      '<div class="menu"><b>주요 메뉴</b> ' + esc((d.menu || []).join(', ')) + '</div>' +
-      (d.note ? '<div class="row">' + esc(d.note) + '</div>' : '') +
-      (d.sample ? '<div class="sample">※ 예시 데이터입니다. data.js에서 교체하세요.</div>' : '') +
+      (d.region ? '<span class="region">' + esc(d.region) + '</span>' : '') +
+      '<dl>' +
+        '<div><dt>출처</dt><dd>' + src + '</dd></div>' +
+        '<div><dt>위치</dt><dd>' + esc(d.address) + '</dd></div>' +
+        '<div><dt>메뉴</dt><dd>' + esc((d.menu || []).join(', ')) + '</dd></div>' +
+      '</dl>' +
+      (d.note ? '<p class="note">' + esc(d.note) + '</p>' : '') +
+      (d.sample ? '<p class="sample">예시 데이터예요. data.js에서 실제 맛집으로 바꾸세요.</p>' : '') +
       '<div class="actions">' +
         '<a href="' + mapUrl + '" target="_blank" rel="noopener">네이버 지도</a>' +
         (d.link ? '<a href="' + esc(d.link) + '" target="_blank" rel="noopener">원본 영상/기사</a>' : '') +

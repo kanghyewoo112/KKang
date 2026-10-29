@@ -3,33 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>나만의 맛집 지도</title>
+<title>오늘은 어디서 먹지? 나만의 맛집 아카이브</title>
 <meta name="description" content="방송·유튜브에 소개된 맛집을 지역별로 모아둔 나만의 맛집 아카이브">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="hero">
-  <h1>🍚 나만의 맛집 아카이브</h1>
-  <p>방송·유튜브에 소개된 맛집을 지역별로 모았어요</p>
-  <div class="controls">
-    <input id="q" type="search" placeholder="식당명, 메뉴, 프로그램 검색">
-    <select id="region"><option value="">전체 지역</option></select>
-    <select id="source"><option value="">전체 출처</option></select>
-    <select id="sort">
+  <h1 class="caption"><span>오늘은</span><span>어디서 먹지?</span></h1>
+  <p class="subtitle">방송에 나온 그 집, 한곳에 모았어요</p>
+  <div class="controls" role="search">
+    <input id="q" type="search" placeholder="식당, 메뉴, 프로그램 검색" aria-label="검색">
+    <select id="region" aria-label="지역"><option value="">전체 지역</option></select>
+    <select id="source" aria-label="방송 출처"><option value="">전체 출처</option></select>
+    <select id="sort" aria-label="정렬">
       <option value="new">최신 소개순</option>
       <option value="name">이름순</option>
     </select>
   </div>
-  <div id="count" class="count"></div>
+  <p id="count" class="count"></p>
 </header>
 
 <main>
   <section id="list" class="grid"></section>
-  <p id="empty" class="empty" hidden>조건에 맞는 맛집이 없어요.</p>
+  <p id="empty" class="empty" hidden>조건에 맞는 맛집이 없어요. 검색어를 바꿔 보세요.</p>
 </main>
 
 <footer>
-  <p>정보는 방송·영상 소개 당시 기준이며, 방문 전 영업시간과 휴무일을 꼭 확인하세요.</p>
+  <p>정보는 방송·영상 소개 당시 기준이에요. 방문 전에 영업시간과 휴무일을 꼭 확인하세요.</p>
 </footer>
 
 <script src="data.js"></script>

@@ -1,30 +1,103 @@
 :root{
-  --bg:#fffaf3; --card:#ffffff; --ink:#2b2118; --muted:#7a6a5c;
-  --accent:#d9480f; --accent-soft:#ffe8d9; --line:#eadfd2;
-}
-@media (prefers-color-scheme: dark){
-  :root{ --bg:#1c1713; --card:#262019; --ink:#f4ece3; --muted:#b3a393; --accent:#ff8a4c; --accent-soft:#3a2a1e; --line:#3a3128; }
+  --cloth:#f4faf1;      /* 식탁보 바탕 */
+  --check:rgba(94,190,150,.30); /* 식탁보 체크 */
+  --ink:#1d2b4a;        /* 자막 외곽선·본문 남색 */
+  --caption:#ffe14d;    /* 자막 노랑 */
+  --pink:#ff5c8a;       /* 방송 스티커 */
+  --paper:#fffdf4;      /* 주문서 종이 */
+  --muted:#5d6a86;
+  --line:#d9cfb8;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.5}
-.hero{padding:40px 16px 20px;text-align:center;max-width:960px;margin:0 auto}
-.hero h1{margin:0 0 6px;font-size:28px}
-.hero p{margin:0 0 20px;color:var(--muted)}
-.controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.controls input,.controls select{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font-size:15px}
-.controls input{flex:1 1 220px;min-width:0}
-.count{margin-top:12px;color:var(--muted);font-size:14px}
-main{max-width:960px;margin:0 auto;padding:8px 16px 40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px}
-.card h2{margin:0;font-size:18px}
-.tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{background:var(--accent-soft);color:var(--accent);font-size:12px;padding:3px 8px;border-radius:999px}
-.row{font-size:14px;color:var(--muted)}
-.row b{color:var(--ink);font-weight:600}
-.menu{font-size:14px}
-.actions{margin-top:auto;display:flex;gap:8px;padding-top:6px}
-.actions a{font-size:13px;text-decoration:none;color:var(--accent);border:1px solid var(--accent);padding:6px 10px;border-radius:8px}
-.sample{font-size:12px;color:var(--muted)}
-.empty{text-align:center;color:var(--muted);padding:40px 0}
-footer{text-align:center;color:var(--muted);font-size:13px;padding:24px 16px 40px;border-top:1px solid var(--line)}
+html{color-scheme:light}
+body{
+  margin:0;color:var(--ink);
+  font-family:"Gowun Dodum","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.6;
+  background-color:var(--cloth);
+  background-image:
+    linear-gradient(90deg,var(--check) 50%,transparent 50%),
+    linear-gradient(var(--check) 50%,transparent 50%);
+  background-size:56px 56px;
+}
+
+/* ---------- 히어로: 예능 자막 ---------- */
+.hero{max-width:980px;margin:0 auto;padding:56px 18px 24px;text-align:center}
+.caption{
+  margin:0;font-family:"Jua","Gowun Dodum",sans-serif;font-weight:400;
+  font-size:clamp(40px,9.5vw,92px);line-height:1.12;letter-spacing:-.01em;
+  color:var(--caption);
+  -webkit-text-stroke:.16em var(--ink);paint-order:stroke fill;
+  text-shadow:0 .07em 0 var(--ink);
+  transform:rotate(-2deg);
+}
+.caption span{display:block}
+.subtitle{
+  display:inline-block;margin:26px 0 0;padding:6px 16px;border-radius:4px;
+  background:rgba(20,28,48,.88);color:#fff;font-size:17px;
+}
+.controls{
+  margin:28px auto 0;max-width:760px;padding:14px;border-radius:14px;
+  background:var(--paper);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+  display:flex;flex-wrap:wrap;gap:10px;text-align:left;
+}
+.controls input,.controls select{
+  font:inherit;color:var(--ink);padding:10px 12px;border-radius:8px;
+  border:1.5px solid var(--ink);background:#fff;min-width:0;
+}
+.controls input{flex:1 1 220px}
+.controls select{flex:0 1 150px}
+.controls :focus-visible,.actions a:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.count{margin:18px 0 0;font-family:"Jua",sans-serif;font-size:20px}
+
+/* ---------- 주문서 카드 ---------- */
+main{max-width:980px;margin:0 auto;padding:18px 18px 60px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:34px 22px}
+.card{
+  position:relative;padding:26px 20px 18px;margin-bottom:10px;
+  background:var(--paper);border-radius:6px 6px 0 0;
+  filter:drop-shadow(3px 4px 0 rgba(29,43,74,.9));
+}
+.card::before{ /* 윗부분 점선 = 주문서 절취선 */
+  content:"";position:absolute;left:14px;right:14px;top:10px;
+  border-top:2px dashed var(--line);
+}
+.card::after{ /* 아래 톱니 */
+  content:"";position:absolute;left:0;right:0;bottom:-10px;height:10px;
+  background:
+    linear-gradient(-45deg,transparent 7px,var(--paper) 0),
+    linear-gradient(45deg,transparent 7px,var(--paper) 0);
+  background-size:14px 10px;
+}
+.sticker{
+  position:absolute;top:-14px;right:12px;max-width:80%;
+  background:var(--pink);color:#fff;font-family:"Jua",sans-serif;font-size:15px;
+  padding:3px 12px;border-radius:999px;border:2px solid var(--ink);
+  transform:rotate(3deg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.card h2{margin:6px 0 2px;font-family:"Jua",sans-serif;font-weight:400;font-size:26px;line-height:1.25}
+.region{display:inline-block;font-size:13px;padding:1px 10px;border-radius:999px;background:var(--ink);color:#fff}
+dl{margin:12px 0 0}
+dl div{display:flex;gap:12px;padding:7px 0;border-bottom:1.5px dotted var(--line)}
+dt{flex:0 0 42px;font-family:"Jua",sans-serif;color:var(--pink)}
+dd{margin:0;flex:1;min-width:0;overflow-wrap:anywhere}
+.note{margin:10px 0 0;font-size:14px;color:var(--muted)}
+.sample{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.actions a{
+  font-size:14px;color:var(--ink);text-decoration:none;
+  padding:6px 12px;border-radius:8px;border:1.5px solid var(--ink);background:var(--caption);
+}
+.actions a:hover{background:#fff}
+.empty{text-align:center;font-family:"Jua",sans-serif;font-size:22px;padding:40px 0}
+footer{
+  text-align:center;padding:22px 16px 36px;font-size:14px;color:#fff;
+  background:var(--ink);
+}
+footer p{margin:0}
+
+@media (max-width:520px){
+  .hero{padding-top:40px}
+  .controls select{flex:1 1 45%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
