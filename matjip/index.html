@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>나만의 맛집 지도</title>
+<meta name="description" content="방송·유튜브에 소개된 맛집을 지역별로 모아둔 나만의 맛집 아카이브">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <h1>🍚 나만의 맛집 아카이브</h1>
+  <p>방송·유튜브에 소개된 맛집을 지역별로 모았어요</p>
+  <div class="controls">
+    <input id="q" type="search" placeholder="식당명, 메뉴, 프로그램 검색">
+    <select id="region"><option value="">전체 지역</option></select>
+    <select id="source"><option value="">전체 출처</option></select>
+    <select id="sort">
+      <option value="new">최신 소개순</option>
+      <option value="name">이름순</option>
+    </select>
+  </div>
+  <div id="count" class="count"></div>
+</header>
+
+<main>
+  <section id="list" class="grid"></section>
+  <p id="empty" class="empty" hidden>조건에 맞는 맛집이 없어요.</p>
+</main>
+
+<footer>
+  <p>정보는 방송·영상 소개 당시 기준이며, 방문 전 영업시간과 휴무일을 꼭 확인하세요.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
