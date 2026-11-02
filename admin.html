@@ -427,7 +427,7 @@
         body
       };
       if (images.length) post.images = images.map(im => im.path);
-      if (editing >= 0 && posts[editing].video) post.video = posts[editing].video;
+      if (editing >= 0 && posts[editing].video) { post.video = posts[editing].video; if (posts[editing].poster) post.poster = posts[editing].poster; }
       // 같은 서랍에서 수정하면 번호를 그대로 두고, 새 글이거나 서랍을 옮기면 그 서랍의 다음 번호를 받습니다
       if (editing >= 0 && posts[editing].drawer === post.drawer) post.no = posts[editing].no;
       say("저장하는 중입니다…");

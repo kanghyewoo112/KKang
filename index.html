@@ -180,9 +180,8 @@
   dialog h3 { font-size: 1.7rem; font-weight: 700; line-height: 1.35; margin: 12px 0 0; }
   dialog time { margin: 6px 0 22px; padding-bottom: 18px; border-bottom: 1px dashed var(--line); }
   dialog img { display: block; width: 100%; margin-bottom: 14px; border-radius: 14px; }
+  dialog video { display: block; width: 100%; max-height: 72vh; background: #000; border-radius: 14px; margin-bottom: 14px; }
   #rImgs:not(:empty) { margin-bottom: 22px; }
-  #rVideo:not(:empty) { margin-bottom: 22px; }
-  #rVideo video { width: 100%; max-height: 70vh; border-radius: 12px; background: #000; }
   dialog .body p + p { margin-top: 14px; }
   .close { position: absolute; right: 14px; top: 12px; width: 36px; height: 36px; border-radius: 50%;
     border: 1px solid var(--line); background: var(--glass); font-size: 1rem; line-height: 1; }
@@ -304,7 +303,6 @@
   <span class="badge" id="rBadge"></span>
   <h3 id="rTitle"></h3>
   <time id="rDate"></time>
-  <div id="rVideo"></div>
   <div id="rImgs"></div>
   <div class="body" id="rBody"></div>
 </dialog>
@@ -402,19 +400,15 @@
       num.style.setProperty("--c", d.color);
       card.append(num, el("i", "tape " + TAPES[i % TAPES.length]));
       const imgs = imagesOf(p);
-      if (!imgs.length && p.video && p.video.poster) {
+      const cover = imgs[0] || p.poster;
+      if (cover) {
         const img = el("img");
-        img.src = p.video.poster; img.alt = ""; img.loading = "lazy";
-        card.append(img);
-      }
-      if (imgs.length) {
-        const img = el("img");
-        img.src = imgs[0]; img.alt = ""; img.loading = "lazy";
+        img.src = cover; img.alt = ""; img.loading = "lazy";
         card.append(img);
       }
       const b = el("span");
       badge(b, p.drawer);
-      const when = fmtDate(p.date) + (imgs.length > 1 ? " · 사진 " + imgs.length + "장" : "");
+      const when = fmtDate(p.date) + (imgs.length > 1 ? " · 사진 " + imgs.length + "장" : "") + (p.video ? " · ▶ 쇼츠" : "");
       card.append(b, el("h3", "", p.title), el("p", "", p.summary), el("time", "", when));
       card.addEventListener("click", () => openPost(p));
       box.append(card);
@@ -431,16 +425,14 @@
     $("rBadge").textContent = p.drawer + " · No." + p.no;
     $("rTitle").textContent = p.title;
     $("rDate").textContent = fmtDate(p.date);
-    const vbox = $("rVideo");
-    vbox.replaceChildren();
-    if (p.video && p.video.src) {
-      const v = el("video");
-      v.src = p.video.src; v.controls = true; v.playsInline = true; v.preload = "metadata";
-      if (p.video.poster) v.poster = p.video.poster;
-      vbox.append(v);
-    }
     const gallery = $("rImgs");
     gallery.replaceChildren();
+    if (p.video) {
+      const v = el("video");
+      v.src = p.video; v.controls = true; v.playsInline = true; v.preload = "metadata";
+      if (p.poster) v.poster = p.poster;
+      gallery.append(v);
+    }
     imagesOf(p).forEach(src => {
       const img = el("img");
       img.src = src; img.alt = "";
@@ -459,6 +451,7 @@
   const reader = $("reader");
   reader.querySelector(".close").addEventListener("click", () => reader.close());
   reader.addEventListener("click", e => { if (e.target === reader) reader.close(); });
+  reader.addEventListener("close", () => reader.querySelectorAll("video").forEach(v => v.pause()));
 
   $("year").textContent = new Date().getFullYear();
   select("전체");
