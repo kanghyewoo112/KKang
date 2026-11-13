@@ -25,5 +25,19 @@
 }
 ```
 
+## 블로그 결과물 올리기 (자동 변환)
+매일 만드는 블로그 결과물 폴더를 그대로 사이트에 올립니다.
+
+```
+cd matjip/tools
+python3 import_post.py <하루 폴더 또는 식당 폴더>          # 예: 2026-11-12
+python3 import_post.py <폴더> --dry-run                     # 읽은 내용만 확인
+```
+- 입력: `NN_식당명_블로그본문.html`, `NN_식당명_이미지.html` (gen_blog.py 결과물)
+- 결과: `data.js` 항목 추가·갱신, `img/<id>/` 에 대표 이미지(thumb, hero)와 메뉴판(menu) JPG
+- 목록 카드에서 `자세히 보기`를 누르면 `r.html?id=<id>` 상세 페이지(소개, 메뉴판, 방문 정보, 출처)가 열립니다.
+- `{확인}` 으로 표시된 항목은 상세 페이지에 빨간 '확인 필요'로 보입니다. 직접 확인한 뒤 `data.js` 에서 고치세요.
+- 필요: python3, beautifulsoup4, pillow, playwright(chromium), 글꼴 Noto Sans CJK KR
+
 ## 구성
-- `index.html` 화면 / `style.css` 디자인(다크모드 지원) / `app.js` 검색·필터·정렬 / `data.js` 데이터
+- `index.html` 목록 / `r.html`+`r.js` 상세 / `style.css` 디자인 / `app.js` 검색·필터·정렬 / `data.js` 데이터 / `img/` 이미지 / `tools/import_post.py` 가져오기 도구
