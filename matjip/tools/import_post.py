@@ -2,7 +2,7 @@
 """블로그 일일 결과물을 맛집 사이트(matjip)에 올리는 도구.
 
 사용:
-  python3 import_post.py <입력 폴더> [<입력 폴더> ...] [--site ..] [--dry-run] [--force]
+  python3 import_post.py <입력 폴더> [<입력 폴더> ...] [--site ..] [--dry-run] [--force] [--drop-unconfirmed]
 
 입력 폴더는 둘 중 하나입니다.
   - 하루치 폴더      예) 2026-11-12/          (01_우양각/, 02_.../ 하위 폴더를 모두 처리)
@@ -264,6 +264,28 @@ def load_data(js_path: Path) -> list:
         return []  # 처음 만든 예시 파일(키에 따옴표 없음)이면 비워서 시작
 
 
+def _clean_lines(text: str) -> str:
+    """{확인} 이 들어 있는 줄을 지운다."""
+    return "\n".join(l for l in (text or "").split("\n") if "{확인}" not in l).strip()
+
+
+def drop_unconfirmed(e: dict) -> dict:
+    """확인 필요({확인}) 표시가 붙은 줄·항목·문단을 모두 지운다. 지운 뒤 빈 항목은 함께 없앤다."""
+    e["warn"] = ""
+    e["intro"] = [l for l in (_clean_lines(x) for x in e["intro"]) if l]
+    e["menuWhat"] = _clean_lines(e["menuWhat"])
+    e["menuTable"] = [r for r in e["menuTable"] if "{확인}" not in r[0] and r[1] and "{확인}" not in r[1]]
+    e["menu"] = [r[0] for r in e["menuTable"]]
+    e["tips"] = [[h, b] for h, b in ((h, _clean_lines(b)) for h, b in e["tips"]) if b and "{확인}" not in h]
+    e["hist"] = [l for l in (_clean_lines(x) for x in e["hist"]) if l]
+    e["aroundNote"] = _clean_lines(e["aroundNote"]) if "{확인}" not in e["aroundNote"] else ""
+    e["around"] = [[n, d] for n, d in ((n, _clean_lines(d)) for n, d in e["around"]) if d and "{확인}" not in n]
+    if not e["around"]:
+        e["aroundNote"] = ""  # 소개할 곳이 없으면 안내 문장도 지운다
+    e["info"] = {k: _clean_lines(v) for k, v in e["info"].items()}
+    return e
+
+
 HEADER = """// 맛집 데이터. matjip/tools/import_post.py 가 만들고 갱신합니다.
 // 직접 고쳐도 되지만, 같은 id 로 다시 가져오면 그 항목은 새 내용으로 바뀝니다.
 // {확인} 은 사이트에서 빨간 '확인 필요' 표시로 보입니다. 직접 확인한 뒤 지우세요.
@@ -283,6 +305,8 @@ def main():
     ap.add_argument("--site", type=Path, default=Path(__file__).resolve().parent.parent,
                     help="matjip 폴더 (기본: 이 파일의 상위 폴더)")
     ap.add_argument("--dry-run", action="store_true", help="파일을 쓰지 않고 읽은 내용만 보여줍니다.")
+    ap.add_argument("--drop-unconfirmed", action="store_true",
+                    help="{확인}(확인 필요) 표시가 붙은 줄과 항목을 모두 지우고 올립니다.")
     ap.add_argument("--force", action="store_true", help="같은 식당이 있어도 새 id 로 추가합니다.")
     a = ap.parse_args()
 
@@ -298,6 +322,8 @@ def main():
                 continue
             image_html = read_text(img_f)
             e = {**parse_hero(image_html), **parse_body(read_text(body_f))}
+            if a.drop_unconfirmed:
+                e = drop_unconfirmed(e)
             info = e["info"]
             rid = f"{re.sub(r'[^0-9]', '', day)}-{no}"
             dup = [d for d in data if d["name"] == e["name"] and d.get("address") == info.get("address")

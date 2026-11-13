@@ -66,11 +66,11 @@
 
   var hist = section(d.histTitle || '방송 소개 이력', paras(d.hist));
 
-  var around = section('주변 가볼 만한 곳',
+  var around = (d.around || []).length ? section('주변 가볼 만한 곳',
     (d.aroundNote ? '<p>' + rich(d.aroundNote) + '</p>' : '') +
-    '<ul class="around">' + (d.around || []).map(function(a){
+    '<ul class="around">' + d.around.map(function(a){
       return '<li><strong>' + esc(a[0]) + '</strong><span>' + rich(a[1]) + '</span></li>';
-    }).join('') + '</ul>');
+    }).join('') + '</ul>') : '';
 
   var rows = [['주소', d.address], ['영업시간', info.hours], ['휴무', info.off], ['전화', info.tel], ['주차', info.park], ['확인일', d.checked]];
   var visit = section('방문 정보',
