@@ -12,15 +12,16 @@
 </head>
 <body>
 <header class="hero">
-  <h1 class="caption"><span>오늘은</span><span>어디서 먹지?</span></h1>
-  <p class="subtitle">방송에 나온 그 집, 한곳에 모았어요</p>
+  <div class="lang"></div>
+  <h1 class="caption"><span data-i18n="cap1">오늘은</span><span data-i18n="cap2">어디서 먹지?</span></h1>
+  <p class="subtitle" data-i18n="subtitle">방송에 나온 그 집, 한곳에 모았어요</p>
   <div class="controls" role="search">
-    <input id="q" type="search" placeholder="식당, 메뉴, 프로그램 검색" aria-label="검색">
-    <select id="region" aria-label="지역"><option value="">전체 지역</option></select>
-    <select id="source" aria-label="방송 출처"><option value="">전체 출처</option></select>
-    <select id="sort" aria-label="정렬">
-      <option value="new">최신 소개순</option>
-      <option value="name">이름순</option>
+    <input id="q" type="search" data-i18n-ph="ph_q" data-i18n-aria="a_q" placeholder="식당, 메뉴, 프로그램 검색" aria-label="검색">
+    <select id="region" data-i18n-aria="a_region" aria-label="지역"><option value="">전체 지역</option></select>
+    <select id="source" data-i18n-aria="a_source" aria-label="방송 출처"><option value="">전체 출처</option></select>
+    <select id="sort" data-i18n-aria="a_sort" aria-label="정렬">
+      <option value="new" data-i18n="sort_new">최신 소개순</option>
+      <option value="name" data-i18n="sort_name">이름순</option>
     </select>
   </div>
   <p id="count" class="count"></p>
@@ -28,13 +29,14 @@
 
 <main>
   <section id="list" class="grid"></section>
-  <p id="empty" class="empty" hidden>조건에 맞는 맛집이 없어요. 검색어를 바꿔 보세요.</p>
+  <p id="empty" class="empty" data-i18n="empty" hidden>조건에 맞는 맛집이 없어요. 검색어를 바꿔 보세요.</p>
 </main>
 
 <footer>
-  <p>정보는 방송·영상 소개 당시 기준이에요. 방문 전에 영업시간과 휴무일을 꼭 확인하세요.</p>
+  <p data-i18n="footer">정보는 방송·영상 소개 당시 기준이에요. 방문 전에 영업시간과 휴무일을 꼭 확인하세요.</p>
 </footer>
 
+<script src="i18n.js"></script>
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>

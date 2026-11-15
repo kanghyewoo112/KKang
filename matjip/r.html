@@ -11,19 +11,21 @@
 </head>
 <body>
 <header class="topbar">
-  <a class="back" href="./">← 오늘은 어디서 먹지?</a>
+  <a class="back" href="./" data-i18n="back">← 오늘은 어디서 먹지?</a>
+  <div class="lang"></div>
 </header>
 
 <main class="post-wrap">
   <article id="post" class="post" aria-live="polite">
-    <p class="loading">불러오는 중이에요.</p>
+    <p class="loading" data-i18n="loading">불러오는 중이에요.</p>
   </article>
 </main>
 
 <footer>
-  <p>정보는 방송·영상 소개 당시 기준이에요. 방문 전에 영업시간과 휴무일을 꼭 확인하세요.</p>
+  <p data-i18n="footer">정보는 방송·영상 소개 당시 기준이에요. 방문 전에 영업시간과 휴무일을 꼭 확인하세요.</p>
 </footer>
 
+<script src="i18n.js"></script>
 <script src="data.js"></script>
 <script src="r.js"></script>
 </body>

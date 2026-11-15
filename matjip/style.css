@@ -173,3 +173,15 @@ mark.chk{
   .post{padding:40px 16px 24px}
 }
 .post h1,.post p,.post .around span,.post .info dd,.card dd{word-break:keep-all;overflow-wrap:anywhere}
+
+/* ---------- 언어 선택 ---------- */
+.lang{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 18px}
+.topbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.topbar .lang{margin:0;justify-content:flex-end}
+.lang button{
+  font:inherit;font-size:14px;line-height:1;padding:7px 12px;border-radius:999px;cursor:pointer;
+  color:var(--ink);background:var(--paper);border:2px solid var(--ink);
+}
+.lang button:hover{background:#fff}
+.lang button.on{background:var(--ink);color:#fff}
+.lang button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
