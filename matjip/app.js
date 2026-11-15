@@ -18,7 +18,10 @@
     regionVals.forEach(function(v){
       var o = document.createElement('option'); o.value = v; o.textContent = I18N.region(v); region.appendChild(o);
     });
-    fill(source, uniq(data.map(function(d){ return d.program; })));
+    uniq(data.map(function(d){ return d.program; })).forEach(function(v){
+      var src = data.filter(function(d){ return d.program === v; })[0];
+      var o = document.createElement('option'); o.value = v; o.textContent = I18N.loc(src).program; source.appendChild(o);
+    });
     region.value = rv; source.value = sv;
   }
 
@@ -28,10 +31,11 @@
     });
   }
 
-  function card(d){
+  function card(d0){
+    var d = I18N.loc(d0);
     var mapUrl = 'https://map.naver.com/p/search/' + encodeURIComponent(d.address || d.name);
     var src = esc(d.program) + (d.episode ? ' · ' + esc(d.episode) : '') + (d.date ? ' (' + esc(d.date) + ')' : '');
-    var detail = d.id ? 'r.html?id=' + encodeURIComponent(d.id) : '';
+    var detail = d0.id ? 'r.html?id=' + encodeURIComponent(d.id) : '';
     var thumb = d.img && d.img.thumb
       ? '<a class="thumb" href="' + detail + '" tabindex="-1" aria-hidden="true"><img src="' + esc(d.img.thumb) +
         '" width="480" height="480" alt="" loading="lazy"></a>'
@@ -40,7 +44,7 @@
       (d.program ? '<span class="sticker">' + esc(d.program) + '</span>' : '') +
       thumb +
       '<h2>' + (detail ? '<a class="name" href="' + detail + '">' + esc(d.name) + '</a>' : esc(d.name)) + '</h2>' +
-      (d.region ? '<span class="region">' + esc(I18N.region(d.region)) + '</span>' : '') +
+      (d.region ? '<span class="region">' + esc(I18N.region(d0.region)) + '</span>' : '') +
       '<dl>' +
         '<div><dt>' + T('l_src') + '</dt><dd>' + src + '</dd></div>' +
         '<div><dt>' + T('l_loc') + '</dt><dd>' + esc(d.address) + '</dd></div>' +
@@ -62,11 +66,12 @@
       if (region.value && d.region !== region.value) return false;
       if (source.value && d.program !== source.value) return false;
       if (!kw) return true;
-      var hay = [d.name, d.program, d.episode, d.address, (d.menu || []).join(' ')].join(' ').toLowerCase();
+      var l = I18N.loc(d);
+      var hay = [d.name, d.program, d.episode, d.address, (d.menu || []).join(' '), l.name, l.program, l.episode, (l.menu || []).join(' ')].join(' ').toLowerCase();
       return hay.indexOf(kw) !== -1;
     });
     list.sort(function(a, b){
-      if (sort.value === 'name') return String(a.name).localeCompare(String(b.name), 'ko');
+      if (sort.value === 'name') return String(I18N.loc(a).name).localeCompare(String(I18N.loc(b).name), I18N.get());
       return String(b.date || '').localeCompare(String(a.date || ''));
     });
     $('list').innerHTML = list.map(card).join('');

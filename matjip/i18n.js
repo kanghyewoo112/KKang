@@ -98,6 +98,23 @@
     return s;
   }
   function region(r){ return (R[lang] && R[lang][r]) || r; }
+  // 식당 데이터를 현재 언어로 바꾼 사본 (번역이 없는 항목은 한국어 원문 유지)
+  function loc(d){
+    var tr = window.TR && window.TR[lang];
+    if (lang === 'ko' || !tr || !d) return d;
+    var r = tr.r[d.id] || {}, o = {}, dish = tr.dish || {};
+    Object.keys(d).forEach(function(k){ o[k] = d[k]; });
+    ['name','program','episode','title','pill','heroText','note','menuWhat','intro','tips','hist','around'].forEach(function(k){
+      if (r[k] !== undefined) o[k] = r[k];
+    });
+    o.info = Object.assign({}, d.info || {}, r.info || {});
+    o.menu = (d.menu || []).map(function(m){ return dish[m] || m; });
+    o.menuTable = (d.menuTable || []).map(function(row){
+      return [dish[row[0]] || row[0], row[1] ? String(row[1]).replace('원', tr.unit || '원') : row[1]];
+    });
+    o.tags = [];
+    return o;
+  }
   function applyStatic(){
     document.documentElement.lang = lang;
     var m;
@@ -129,6 +146,6 @@
     });
     applyStatic();
   }
-  window.I18N = { t:t, region:region, set:set, get:function(){ return lang; }, onChange:function(f){ subs.push(f); }, apply:applyStatic };
+  window.I18N = { loc:loc, t:t, region:region, set:set, get:function(){ return lang; }, onChange:function(f){ subs.push(f); }, apply:applyStatic };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
 })();

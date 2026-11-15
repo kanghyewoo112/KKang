@@ -2,7 +2,7 @@
   var T = I18N.t;
   var root = document.getElementById('post');
   var id = new URLSearchParams(location.search).get('id');
-  var d = (window.RESTAURANTS || []).filter(function(x){ return x.id === id; })[0];
+  var d0 = (window.RESTAURANTS || []).filter(function(x){ return x.id === id; })[0], d;
 
   function esc(s){
     return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
@@ -22,6 +22,7 @@
   function safeUrl(u){ return /^https?:\/\//.test(u) ? u : ''; }
 
   function build(){
+  d = I18N.loc(d0);
   if (!d) {
     document.title = T('nf_h') + ' | ' + T('site');
     root.innerHTML = '<h1>' + T('nf_h') + '</h1><p>' + T('nf_p') + '</p>' +
