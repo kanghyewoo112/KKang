@@ -110,7 +110,7 @@
     o.info = Object.assign({}, d.info || {}, r.info || {});
     o.menu = (d.menu || []).map(function(m){ return dish[m] || m; });
     o.menuTable = (d.menuTable || []).map(function(row){
-      return [dish[row[0]] || row[0], row[1] ? String(row[1]).replace('원', tr.unit || '원') : row[1]];
+      return [dish[row[0]] || row[0], row[1] ? (dish[row[1]] || String(row[1]).replace('원', tr.unit || '원')) : row[1]];
     });
     o.tags = [];
     return o;
