@@ -1,0 +1,102 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>9권 버그 사냥꾼 · 코코의 코딩 모험</title><meta name="description" content="찾으면 이기는 게임">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/style.css"><script src="../assets/app.js"></script></head><body>
+<nav><div class="wrap"><a class="brand" href="../index.html"><svg viewBox="0 0 120 120" width="34" height="34" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg>코코의 코딩 모험</a><a class="l" href="../index.html">모험 지도</a><a class="l" href="../curriculum.html">1년 커리큘럼</a><a class="l" href="../index.html#books" aria-current="page">워크북 10권</a><a class="l" href="../parents.html">부모님 가이드</a></div></nav>
+<header class="hero" style="background:#A9A0FF"><div class="wrap"><div class="t"><span class="pill">9권 · Lv.9 버그 사냥꾼</span><h1>🐞 버그 사냥꾼</h1><p>찾으면 이기는 게임</p><a class="btn" href="../pdf/book09.pdf" download>PDF 받기 (12쪽)</a> <a class="btn ghost" href="../index.html#map">모험 지도</a></div><svg viewBox="0 0 120 120" width="150" height="150" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg></div></header>
+<main class="wrap"><section><h2>이 책에서 배워요</h2><div class="grid g3"><div class="card" style="--c:#A9A0FF"><span class="tag">1</span><p style="margin:6px 0 0">버그가 무엇인지 알아요</p></div><div class="card" style="--c:#A9A0FF"><span class="tag">2</span><p style="margin:6px 0 0">틀린 곳을 찾아 고쳐요</p></div><div class="card" style="--c:#A9A0FF"><span class="tag">3</span><p style="margin:6px 0 0">버그 찾기를 즐겨요</p></div></div>
+<div class="card" style="margin-top:20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span class="jua" style="font-size:20px">내 진행도</span><div class="bar" style="flex:1;min-width:180px"><i id="pbar"></i></div><span id="ptxt" class="jua">⭐ 0 / 4</span><span id="fin" class="badge" hidden>🎉 버그 사냥꾼 달성!</span></div></section>
+<section><h2>단원별 학습</h2><p class="lead">설명 쪽을 읽고 → 몸으로 놀고 → 문제 쪽을 풀어요. 끝나면 "다 했어요!"를 눌러 별을 모아요.</p><article class="unit" style="--c:#A9A0FF"><header><div class="n">1</div><h3>코코의 실수</h3><span class="tag" style="--c:#fff">개념: 버그 (디버깅)</span><label class="chk"><input type="checkbox" data-u="b9u1"> 다 했어요!</label></header><div class="in">
+<div class="say"><svg viewBox="0 0 120 120" width="44" height="44" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg><div>프로그램의 실수를 버그라고 해요. 버그를 찾으면 이기는 게임이에요!</div></div>
+<div><h4 style="margin:0">코코의 풀이 순서</h4><ol class="ol"><li>카드를 모두 읽어요</li><li>&#x27;먼저&#x27;가 될 카드를 찾아요</li><li>그다음, 마지막 순서로 번호를 써요</li></ol></div>
+<div><h4 style="margin:0">몸으로 놀아요</h4><ol class="ol"><li>코코가 일부러 순서를 틀려요</li><li>아이가 &#x27;버그!&#x27; 하고 외쳐요</li><li>어떻게 고칠지 말해요</li></ol></div>
+<div><h4 style="margin:0">준비물</h4><p style="margin:4px 0">빨간 색연필</p><h4 style="margin:8px 0 0">생각 질문</h4><p style="margin:4px 0">어디가 이상했어?</p></div>
+<div><h4 style="margin:0">이 단원이 끝나면</h4><p style="margin:4px 0">✅ 버그를 찾을 수 있어요</p><p style="margin:4px 0;font-size:16px">책 3~4쪽 (설명 → 문제)</p></div>
+<div class="adult"><b>어른께</b> 버그는 프로그램의 실수예요. &#x27;틀렸다&#x27;가 아니라 &#x27;찾으면 이기는 게임&#x27;으로 소개해 주세요. 6세에게 가장 중요한 마음가짐이에요.</div></div></article><article class="unit" style="--c:#A9A0FF"><header><div class="n">2</div><h3>버그 활동지</h3><span class="tag" style="--c:#fff">개념: 버그 찾아 고치기</span><label class="chk"><input type="checkbox" data-u="b9u2"> 다 했어요!</label></header><div class="in">
+<div class="say"><svg viewBox="0 0 120 120" width="44" height="44" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg><div>화살표를 손가락으로 따라가면 어디서 틀렸는지 보여요. 틀린 곳만 고치면 돼요.</div></div>
+<div><h4 style="margin:0">코코의 풀이 순서</h4><ol class="ol"><li>화살표를 손가락으로 따라가요</li><li>부딪히는 곳을 찾아 ○ 쳐요</li><li>고친 화살표를 아래에 그려요</li></ol></div>
+<div><h4 style="margin:0">몸으로 놀아요</h4><ol class="ol"><li>화살표대로 손가락을 움직여요</li><li>바위에 부딪히는 곳을 찾아요</li><li>고쳐서 다시 따라가요</li></ol></div>
+<div><h4 style="margin:0">준비물</h4><p style="margin:4px 0">빨간 색연필</p><h4 style="margin:8px 0 0">생각 질문</h4><p style="margin:4px 0">어느 화살표가 버그였어?</p></div>
+<div><h4 style="margin:0">이 단원이 끝나면</h4><p style="margin:4px 0">✅ 틀린 화살표를 찾아 고칠 수 있어요</p><p style="margin:4px 0;font-size:16px">책 5~6쪽 (설명 → 문제)</p></div>
+<div class="adult"><b>어른께</b> 프로그램을 따라가 보면 어디서 잘못됐는지 알 수 있어요. 손가락으로 한 칸씩 따라가는 습관을 들여요.</div></div></article><article class="unit" style="--c:#A9A0FF"><header><div class="n">3</div><h3>길 안내 고치기</h3><span class="tag" style="--c:#fff">개념: 내 코드 고치기</span><label class="chk"><input type="checkbox" data-u="b9u3"> 다 했어요!</label></header><div class="in">
+<div class="say"><svg viewBox="0 0 120 120" width="44" height="44" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg><div>내가 만든 길에도 버그가 생길 수 있어요. 버그를 고치면 더 좋아져요.</div></div>
+<div><h4 style="margin:0">코코의 풀이 순서</h4><ol class="ol"><li>화살표를 손가락으로 따라가요</li><li>부딪히는 곳을 찾아 ○ 쳐요</li><li>고친 화살표를 아래에 그려요</li></ol></div>
+<div><h4 style="margin:0">몸으로 놀아요</h4><ol class="ol"><li>내가 만든 길을 어른이 따라가요</li><li>어른이 일부러 부딪혀요</li><li>같이 버그를 찾아 고쳐요</li></ol></div>
+<div><h4 style="margin:0">준비물</h4><p style="margin:4px 0">빨간 색연필</p><h4 style="margin:8px 0 0">생각 질문</h4><p style="margin:4px 0">다시 해 보니 어땠어?</p></div>
+<div><h4 style="margin:0">이 단원이 끝나면</h4><p style="margin:4px 0">✅ 내가 만든 길의 버그를 고칠 수 있어요</p><p style="margin:4px 0;font-size:16px">책 7~8쪽 (설명 → 문제)</p></div>
+<div class="adult"><b>어른께</b> 내가 만든 프로그램에도 버그가 생길 수 있어요. 고치는 과정을 기다려 주면 아이가 스스로 해결해요.</div></div></article><article class="unit" style="--c:#A9A0FF"><header><div class="n">4</div><h3>3학기 정리 잔치</h3><span class="tag" style="--c:#fff">개념: 돌아보기</span><label class="chk"><input type="checkbox" data-u="b9u4"> 다 했어요!</label></header><div class="in">
+<div class="say"><svg viewBox="0 0 120 120" width="44" height="44" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg><div>버그를 찾은 나를 칭찬해요. 고치면서 우리는 더 똑똑해져요.</div></div>
+<div><h4 style="margin:0">코코의 풀이 순서</h4><ol class="ol"><li>무엇을 그릴지 말로 먼저 해요</li><li>첫 칸부터 순서대로 그려요</li><li>다 그린 뒤 어른에게 설명해요</li></ol></div>
+<div><h4 style="margin:0">몸으로 놀아요</h4><ol class="ol"><li>가장 어려웠던 놀이를 말해요</li><li>어떻게 해결했는지 말해요</li><li>배지에 도장을 쾅!</li></ol></div>
+<div><h4 style="margin:0">준비물</h4><p style="margin:4px 0">도장</p><h4 style="margin:8px 0 0">생각 질문</h4><p style="margin:4px 0">가장 자랑스러운 순간은?</p></div>
+<div><h4 style="margin:0">이 단원이 끝나면</h4><p style="margin:4px 0">✅ 버그를 고친 경험을 말할 수 있어요</p><p style="margin:4px 0;font-size:16px">책 9~10쪽 (설명 → 문제)</p></div>
+<div class="adult"><b>어른께</b> 조건과 버그 찾기를 돌아보며 &#x27;만약에&#x27;와 &#x27;고치기&#x27;를 칭찬해 주는 시간이에요. 도장과 배지로 마무리해요.</div></div></article></section>
+<section><h2>책 미리보기</h2><p class="lead">눌러서 크게 볼 수 있어요.</p><div class="shots"><a href="../img/p/l09-01.jpg" target="_blank" rel="noopener" aria-label="1쪽 크게 보기"><img src="../img/p/s09-01.jpg" alt="9권 1쪽 미리보기"></a><a href="../img/p/l09-02.jpg" target="_blank" rel="noopener" aria-label="2쪽 크게 보기"><img src="../img/p/s09-02.jpg" alt="9권 2쪽 미리보기"></a><a href="../img/p/l09-03.jpg" target="_blank" rel="noopener" aria-label="3쪽 크게 보기"><img src="../img/p/s09-03.jpg" alt="9권 3쪽 미리보기"></a><a href="../img/p/l09-04.jpg" target="_blank" rel="noopener" aria-label="4쪽 크게 보기"><img src="../img/p/s09-04.jpg" alt="9권 4쪽 미리보기"></a><a href="../img/p/l09-05.jpg" target="_blank" rel="noopener" aria-label="5쪽 크게 보기"><img src="../img/p/s09-05.jpg" alt="9권 5쪽 미리보기"></a><a href="../img/p/l09-06.jpg" target="_blank" rel="noopener" aria-label="6쪽 크게 보기"><img src="../img/p/s09-06.jpg" alt="9권 6쪽 미리보기"></a><a href="../img/p/l09-07.jpg" target="_blank" rel="noopener" aria-label="7쪽 크게 보기"><img src="../img/p/s09-07.jpg" alt="9권 7쪽 미리보기"></a><a href="../img/p/l09-08.jpg" target="_blank" rel="noopener" aria-label="8쪽 크게 보기"><img src="../img/p/s09-08.jpg" alt="9권 8쪽 미리보기"></a><a href="../img/p/l09-09.jpg" target="_blank" rel="noopener" aria-label="9쪽 크게 보기"><img src="../img/p/s09-09.jpg" alt="9권 9쪽 미리보기"></a><a href="../img/p/l09-10.jpg" target="_blank" rel="noopener" aria-label="10쪽 크게 보기"><img src="../img/p/s09-10.jpg" alt="9권 10쪽 미리보기"></a><a href="../img/p/l09-11.jpg" target="_blank" rel="noopener" aria-label="11쪽 크게 보기"><img src="../img/p/s09-11.jpg" alt="9권 11쪽 미리보기"></a><a href="../img/p/l09-12.jpg" target="_blank" rel="noopener" aria-label="12쪽 크게 보기"><img src="../img/p/s09-12.jpg" alt="9권 12쪽 미리보기"></a></div></section>
+<section><div class="pn"><a class="btn ghost" href="book08.html">← 8권 분류와 질문</a><a class="btn ghost" href="book10.html">10권 내 이야기 만들기 →</a></div></section></main>
+<script>(function(){var P=COCO.get(),bx=document.querySelectorAll('input[data-u]');function r(){var s=0;bx.forEach(function(x){if(x.checked)s++});document.getElementById('pbar').style.width=(s/4*100)+'%';document.getElementById('ptxt').textContent='⭐ '+s+' / 4';document.getElementById('fin').hidden=s<4}
+bx.forEach(function(x){x.checked=!!P[x.dataset.u];x.addEventListener('change',function(){var Q=COCO.get();if(x.checked)Q[x.dataset.u]=1;else delete Q[x.dataset.u];COCO.put(Q);r()})});r()})();</script>
+<footer>코코의 코딩 모험 · 가정과 교육 현장에서 자유롭게 출력해 사용하세요.</footer></body></html>

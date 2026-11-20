@@ -1,0 +1,102 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>6권 춤 프로그램 · 코코의 코딩 모험</title><meta name="description" content="동작으로 만드는 명령">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/style.css"><script src="../assets/app.js"></script></head><body>
+<nav><div class="wrap"><a class="brand" href="../index.html"><svg viewBox="0 0 120 120" width="34" height="34" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg>코코의 코딩 모험</a><a class="l" href="../index.html">모험 지도</a><a class="l" href="../curriculum.html">1년 커리큘럼</a><a class="l" href="../index.html#books" aria-current="page">워크북 10권</a><a class="l" href="../parents.html">부모님 가이드</a></div></nav>
+<header class="hero" style="background:#FF9EC0"><div class="wrap"><div class="t"><span class="pill">6권 · Lv.6 춤 프로그래머</span><h1>💃 춤 프로그램</h1><p>동작으로 만드는 명령</p><a class="btn" href="../pdf/book06.pdf" download>PDF 받기 (12쪽)</a> <a class="btn ghost" href="../index.html#map">모험 지도</a></div><svg viewBox="0 0 120 120" width="150" height="150" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg></div></header>
+<main class="wrap"><section><h2>이 책에서 배워요</h2><div class="grid g3"><div class="card" style="--c:#FF9EC0"><span class="tag">1</span><p style="margin:6px 0 0">동작으로 명령을 만들어요</p></div><div class="card" style="--c:#FF9EC0"><span class="tag">2</span><p style="margin:6px 0 0">순서와 반복으로 춤을 짜요</p></div><div class="card" style="--c:#FF9EC0"><span class="tag">3</span><p style="margin:6px 0 0">프로그래머와 실행을 알아요</p></div></div>
+<div class="card" style="margin-top:20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span class="jua" style="font-size:20px">내 진행도</span><div class="bar" style="flex:1;min-width:180px"><i id="pbar"></i></div><span id="ptxt" class="jua">⭐ 0 / 4</span><span id="fin" class="badge" hidden>🎉 춤 프로그래머 달성!</span></div></section>
+<section><h2>단원별 학습</h2><p class="lead">설명 쪽을 읽고 → 몸으로 놀고 → 문제 쪽을 풀어요. 끝나면 "다 했어요!"를 눌러 별을 모아요.</p><article class="unit" style="--c:#FF9EC0"><header><div class="n">1</div><h3>동작 카드 4종</h3><span class="tag" style="--c:#fff">개념: 명령 정의하기</span><label class="chk"><input type="checkbox" data-u="b6u1"> 다 했어요!</label></header><div class="in">
+<div class="say"><svg viewBox="0 0 120 120" width="44" height="44" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg><div>동작에 이름을 붙이면 명령이 돼요. 내가 명령을 직접 만들 수 있어요.</div></div>
+<div><h4 style="margin:0">코코의 풀이 순서</h4><ol class="ol"><li>무엇을 그릴지 말로 먼저 해요</li><li>첫 칸부터 순서대로 그려요</li><li>다 그린 뒤 어른에게 설명해요</li></ol></div>
+<div><h4 style="margin:0">몸으로 놀아요</h4><ol class="ol"><li>손 들기·발 구르기·돌기·박수를 해요</li><li>동작마다 이름을 붙여요</li><li>그림 카드로 그려요</li></ol></div>
+<div><h4 style="margin:0">준비물</h4><p style="margin:4px 0">색연필, 카드 종이</p><h4 style="margin:8px 0 0">생각 질문</h4><p style="margin:4px 0">이 그림만 보면 무슨 동작인지 알겠어?</p></div>
+<div><h4 style="margin:0">이 단원이 끝나면</h4><p style="margin:4px 0">✅ 나만의 동작 명령을 만들 수 있어요</p><p style="margin:4px 0;font-size:16px">책 3~4쪽 (설명 → 문제)</p></div>
+<div class="adult"><b>어른께</b> &#x27;손 들기&#x27; 같은 동작에 이름과 그림을 붙이면 나만의 명령이 돼요. 명령을 만든다는 경험이 핵심이에요.</div></div></article><article class="unit" style="--c:#FF9EC0"><header><div class="n">2</div><h3>동작 순서와 반복</h3><span class="tag" style="--c:#fff">개념: 순서 + 반복</span><label class="chk"><input type="checkbox" data-u="b6u2"> 다 했어요!</label></header><div class="in">
+<div class="say"><svg viewBox="0 0 120 120" width="44" height="44" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg><div>동작 두 개를 묶어서 두 번 하면 춤이 돼요. 순서와 반복을 함께 써요.</div></div>
+<div><h4 style="margin:0">코코의 풀이 순서</h4><ol class="ol"><li>쓸 블록(동작)을 골라요</li><li>칸에 순서대로 놓아요</li><li>끝까지 소리 내어 읽어 봐요</li></ol></div>
+<div><h4 style="margin:0">몸으로 놀아요</h4><ol class="ol"><li>동작 2개를 골라요</li><li>묶어서 2번 반복해요</li><li>음악에 맞춰 춰요</li></ol></div>
+<div><h4 style="margin:0">준비물</h4><p style="margin:4px 0">동작 카드, 음악</p><h4 style="margin:8px 0 0">생각 질문</h4><p style="margin:4px 0">이 춤을 반복으로 줄이면?</p></div>
+<div><h4 style="margin:0">이 단원이 끝나면</h4><p style="margin:4px 0">✅ 순서와 반복으로 춤을 만들 수 있어요</p><p style="margin:4px 0;font-size:16px">책 5~6쪽 (설명 → 문제)</p></div>
+<div class="adult"><b>어른께</b> 동작 두 개를 묶어 ×2로 반복하면 춤 프로그램이 돼요. 순서와 반복을 한꺼번에 쓰는 첫 경험이에요.</div></div></article><article class="unit" style="--c:#FF9EC0"><header><div class="n">3</div><h3>내가 프로그래머</h3><span class="tag" style="--c:#fff">개념: 프로그래머와 실행</span><label class="chk"><input type="checkbox" data-u="b6u3"> 다 했어요!</label></header><div class="in">
+<div class="say"><svg viewBox="0 0 120 120" width="44" height="44" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg><div>프로그램을 만드는 사람이 프로그래머예요. 내가 만든 대로 어른이 춤을 춰요.</div></div>
+<div><h4 style="margin:0">코코의 풀이 순서</h4><ol class="ol"><li>쓸 블록(동작)을 골라요</li><li>칸에 순서대로 놓아요</li><li>끝까지 소리 내어 읽어 봐요</li></ol></div>
+<div><h4 style="margin:0">몸으로 놀아요</h4><ol class="ol"><li>아이가 춤 프로그램을 만들어요</li><li>어른이 그대로 춰요</li><li>틀리면 프로그램을 고쳐요</li></ol></div>
+<div><h4 style="margin:0">준비물</h4><p style="margin:4px 0">동작 카드</p><h4 style="margin:8px 0 0">생각 질문</h4><p style="margin:4px 0">어른이 다르게 췄다면 누구 잘못일까?</p></div>
+<div><h4 style="margin:0">이 단원이 끝나면</h4><p style="margin:4px 0">✅ 내가 만든 프로그램을 실행해 볼 수 있어요</p><p style="margin:4px 0;font-size:16px">책 7~8쪽 (설명 → 문제)</p></div>
+<div class="adult"><b>어른께</b> 프로그램을 만드는 사람이 프로그래머, 그대로 움직이는 쪽이 컴퓨터예요. 역할을 바꿔 가며 둘 다 경험해요.</div></div></article><article class="unit" style="--c:#FF9EC0"><header><div class="n">4</div><h3>2학기 정리 잔치</h3><span class="tag" style="--c:#fff">개념: 돌아보기</span><label class="chk"><input type="checkbox" data-u="b6u4"> 다 했어요!</label></header><div class="in">
+<div class="say"><svg viewBox="0 0 120 120" width="44" height="44" aria-hidden="true">
+<line x1="60" y1="20" x2="60" y2="32" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+<circle cx="60" cy="14" r="8" fill="#FF8A7A" stroke="#2B2A4C" stroke-width="4"/>
+<rect x="14" y="30" width="92" height="82" rx="36" fill="#FFC83D" stroke="#2B2A4C" stroke-width="4"/>
+<circle cx="43" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="77" cy="66" r="8" fill="#2B2A4C"/>
+<circle cx="46" cy="63" r="3" fill="#FFFFFF"/>
+<circle cx="80" cy="63" r="3" fill="#FFFFFF"/>
+<ellipse cx="29" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<ellipse cx="91" cy="82" rx="8" ry="5" fill="#FF8A7A"/>
+<path d="M48 84 Q60 96 72 84" fill="none" stroke="#2B2A4C" stroke-width="4" stroke-linecap="round"/>
+</svg><div>배운 반복과 패턴을 모아서 공연을 해요. 가족이 따라 하면 더 신나요.</div></div>
+<div><h4 style="margin:0">코코의 풀이 순서</h4><ol class="ol"><li>무엇을 그릴지 말로 먼저 해요</li><li>첫 칸부터 순서대로 그려요</li><li>다 그린 뒤 어른에게 설명해요</li></ol></div>
+<div><h4 style="margin:0">몸으로 놀아요</h4><ol class="ol"><li>내가 만든 춤을 가족에게 보여 줘요</li><li>가족이 따라 해요</li><li>박수와 도장으로 마무리해요</li></ol></div>
+<div><h4 style="margin:0">준비물</h4><p style="margin:4px 0">도장</p><h4 style="margin:8px 0 0">생각 질문</h4><p style="margin:4px 0">다음에 만들고 싶은 춤은?</p></div>
+<div><h4 style="margin:0">이 단원이 끝나면</h4><p style="margin:4px 0">✅ 내가 만든 춤을 가족에게 보여 줄 수 있어요</p><p style="margin:4px 0;font-size:16px">책 9~10쪽 (설명 → 문제)</p></div>
+<div class="adult"><b>어른께</b> 지난 3개월의 반복·패턴을 한 번에 즐기는 시간이에요. 가족 앞 작은 공연으로 성취감을 크게 줘요.</div></div></article></section>
+<section><h2>책 미리보기</h2><p class="lead">눌러서 크게 볼 수 있어요.</p><div class="shots"><a href="../img/p/l06-01.jpg" target="_blank" rel="noopener" aria-label="1쪽 크게 보기"><img src="../img/p/s06-01.jpg" alt="6권 1쪽 미리보기"></a><a href="../img/p/l06-02.jpg" target="_blank" rel="noopener" aria-label="2쪽 크게 보기"><img src="../img/p/s06-02.jpg" alt="6권 2쪽 미리보기"></a><a href="../img/p/l06-03.jpg" target="_blank" rel="noopener" aria-label="3쪽 크게 보기"><img src="../img/p/s06-03.jpg" alt="6권 3쪽 미리보기"></a><a href="../img/p/l06-04.jpg" target="_blank" rel="noopener" aria-label="4쪽 크게 보기"><img src="../img/p/s06-04.jpg" alt="6권 4쪽 미리보기"></a><a href="../img/p/l06-05.jpg" target="_blank" rel="noopener" aria-label="5쪽 크게 보기"><img src="../img/p/s06-05.jpg" alt="6권 5쪽 미리보기"></a><a href="../img/p/l06-06.jpg" target="_blank" rel="noopener" aria-label="6쪽 크게 보기"><img src="../img/p/s06-06.jpg" alt="6권 6쪽 미리보기"></a><a href="../img/p/l06-07.jpg" target="_blank" rel="noopener" aria-label="7쪽 크게 보기"><img src="../img/p/s06-07.jpg" alt="6권 7쪽 미리보기"></a><a href="../img/p/l06-08.jpg" target="_blank" rel="noopener" aria-label="8쪽 크게 보기"><img src="../img/p/s06-08.jpg" alt="6권 8쪽 미리보기"></a><a href="../img/p/l06-09.jpg" target="_blank" rel="noopener" aria-label="9쪽 크게 보기"><img src="../img/p/s06-09.jpg" alt="6권 9쪽 미리보기"></a><a href="../img/p/l06-10.jpg" target="_blank" rel="noopener" aria-label="10쪽 크게 보기"><img src="../img/p/s06-10.jpg" alt="6권 10쪽 미리보기"></a><a href="../img/p/l06-11.jpg" target="_blank" rel="noopener" aria-label="11쪽 크게 보기"><img src="../img/p/s06-11.jpg" alt="6권 11쪽 미리보기"></a><a href="../img/p/l06-12.jpg" target="_blank" rel="noopener" aria-label="12쪽 크게 보기"><img src="../img/p/s06-12.jpg" alt="6권 12쪽 미리보기"></a></div></section>
+<section><div class="pn"><a class="btn ghost" href="book05.html">← 5권 패턴 탐정</a><a class="btn ghost" href="book07.html">7권 만약에 놀이 →</a></div></section></main>
+<script>(function(){var P=COCO.get(),bx=document.querySelectorAll('input[data-u]');function r(){var s=0;bx.forEach(function(x){if(x.checked)s++});document.getElementById('pbar').style.width=(s/4*100)+'%';document.getElementById('ptxt').textContent='⭐ '+s+' / 4';document.getElementById('fin').hidden=s<4}
+bx.forEach(function(x){x.checked=!!P[x.dataset.u];x.addEventListener('change',function(){var Q=COCO.get();if(x.checked)Q[x.dataset.u]=1;else delete Q[x.dataset.u];COCO.put(Q);r()})});r()})();</script>
+<footer>코코의 코딩 모험 · 가정과 교육 현장에서 자유롭게 출력해 사용하세요.</footer></body></html>
