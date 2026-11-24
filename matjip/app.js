@@ -30,7 +30,8 @@
     region:{ko:'지역', en:'Region', ja:'地域', vi:'Khu vực', id:'Wilayah'},
     prog:{ko:'방송 프로그램', en:'TV program', ja:'放送番組', vi:'Chương trình TV', id:'Program TV'},
     menu:{ko:'메뉴 종류', en:'Menu type', ja:'メニュー', vi:'Loại món', id:'Jenis menu'},
-    all:{ko:'전체', en:'All', ja:'すべて', vi:'Tất cả', id:'Semua'}
+    all:{ko:'전체', en:'All', ja:'すべて', vi:'Tất cả', id:'Semua'},
+    reset:{ko:'초기화', en:'Reset', ja:'リセット', vi:'Đặt lại', id:'Reset'}
   };
   function L(o){ return o[I18N.get()] || o.ko; }
 
@@ -56,26 +57,44 @@
     return '<button type="button" class="chip' + (on ? ' on' : '') + '" data-k="' + key + '" data-v="' + esc(val) + '" aria-pressed="' + (on ? 'true' : 'false') + '">' +
       esc(label) + (n != null ? ' <small>' + n + '</small>' : '') + '</button>';
   }
-  function row(key, title, items){
-    return '<div class="frow" role="group" aria-label="' + esc(title) + '"><span class="flabel">' + esc(title) + '</span><div class="chips">' +
-      chip(key, '', L(LBL.all), null, !sel[key]) + items.join('') + '</div></div>';
+  var openKey = '';
+  function labelOf(key, v){
+    if (key === 'region') return I18N.region(v);
+    var list = key === 'prog' ? PROGS : MENUS;
+    for (var i = 0; i < list.length; i++) if (list[i][0] === v) return L(list[i][2]);
+    return v;
   }
   function fillFilters(){
     var regs = Array.from(new Set(data.map(function(d){ return d.region; }).filter(Boolean))).sort();
-    var rItems = regs.map(function(v){ return [v, count('region', v)]; }).filter(function(x){ return x[1] || sel.region === x[0]; })
-      .map(function(x){ return chip('region', x[0], I18N.region(x[0]), x[1], sel.region === x[0]); });
-    var pItems = PROGS.map(function(p){ return [p, count('prog', p[0])]; }).filter(function(x){ return x[1] || sel.prog === x[0][0]; })
-      .map(function(x){ return chip('prog', x[0][0], L(x[0][2]), x[1], sel.prog === x[0][0]); });
-    var mItems = MENUS.map(function(m){ return [m, count('menu', m[0])]; }).filter(function(x){ return x[1] || sel.menu === x[0][0]; })
-      .map(function(x){ return chip('menu', x[0][0], L(x[0][2]), x[1], sel.menu === x[0][0]); });
-    filtersBox.innerHTML = row('region', L(LBL.region), rItems) + row('prog', L(LBL.prog), pItems) + row('menu', L(LBL.menu), mItems);
+    var items = {
+      region: regs.map(function(v){ return [v, count('region', v)]; }).filter(function(x){ return x[1] || sel.region === x[0]; })
+        .map(function(x){ return chip('region', x[0], I18N.region(x[0]), x[1], sel.region === x[0]); }),
+      prog: PROGS.map(function(p){ return [p[0], count('prog', p[0])]; }).filter(function(x){ return x[1] || sel.prog === x[0]; })
+        .map(function(x){ return chip('prog', x[0], labelOf('prog', x[0]), x[1], sel.prog === x[0]); }),
+      menu: MENUS.map(function(m){ return [m[0], count('menu', m[0])]; }).filter(function(x){ return x[1] || sel.menu === x[0]; })
+        .map(function(x){ return chip('menu', x[0], labelOf('menu', x[0]), x[1], sel.menu === x[0]); })
+    };
+    var btns = ['region','prog','menu'].map(function(k){
+      var on = !!sel[k], open = openKey === k;
+      return '<button type="button" class="fbtn' + (on ? ' sel' : '') + (open ? ' open' : '') + '" data-open="' + k + '" aria-expanded="' + open + '">' +
+        esc(L(LBL[k])) + (on ? ': <b>' + esc(labelOf(k, sel[k])) + '</b>' : '') + ' <span class="caret">' + (open ? '▲' : '▼') + '</span></button>';
+    }).join('');
+    var any = sel.region || sel.prog || sel.menu;
+    var panel = openKey ? '<div class="fpanel" role="group" aria-label="' + esc(L(LBL[openKey])) + '">' + chip(openKey, '', L(LBL.all), null, !sel[openKey]) + items[openKey].join('') + '</div>' : '';
+    filtersBox.innerHTML = '<div class="fbar">' + btns + (any ? '<button type="button" class="fclear" data-clear="1">' + esc(L(LBL.reset)) + '</button>' : '') + '</div>' + panel;
   }
   filtersBox.addEventListener('click', function(e){
-    var b = e.target.closest ? e.target.closest('.chip') : null;
-    if (!b) return;
-    var k = b.getAttribute('data-k'), v = b.getAttribute('data-v');
-    sel[k] = (sel[k] === v) ? '' : v;
-    render();
+    var t = e.target.closest ? e.target.closest('button') : null;
+    if (!t) return;
+    if (t.getAttribute('data-clear')) { sel.region = sel.prog = sel.menu = ''; openKey = ''; render(); return; }
+    var o = t.getAttribute('data-open');
+    if (o) { openKey = (openKey === o) ? '' : o; fillFilters(); return; }
+    if (t.classList.contains('chip')) {
+      var k = t.getAttribute('data-k'), v = t.getAttribute('data-v');
+      sel[k] = (sel[k] === v) ? '' : v;
+      openKey = '';
+      render();
+    }
   });
 
   function esc(s){
