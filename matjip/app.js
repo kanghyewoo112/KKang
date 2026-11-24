@@ -18,14 +18,13 @@
   ];
   // 메뉴 종류: 메뉴 이름과 식당 이름의 키워드로 분류 (여러 종류에 속할 수 있음)
   var MENUS = [
-    ['soup', /국밥|탕|해장|육개장|순댓국|술국|곰탕|전골/, {ko:'국밥·탕', en:'Soups & gukbap', ja:'クッパ・スープ', vi:'Canh & gukbap', id:'Sup & gukbap'}],
-    ['meat', /삼겹|갈비|불고기|차돌|등심|떡갈비|보쌈|수육|바베큐|육회|돈까스|항정|목살/, {ko:'고기·구이·찜', en:'Meat & BBQ', ja:'肉料理・焼肉', vi:'Thịt & nướng', id:'Daging & panggang'}],
+    ['hansik', /국밥|탕|해장|육개장|순댓국|술국|곰탕|전골|찌개|정식|비빔밥/, {ko:'한식 정식·국밥·탕', en:'Korean set meals & soups', ja:'韓定食・クッパ・スープ', vi:'Cơm set Hàn & canh', id:'Set makan Korea & sup'}],
+    ['meat', /삼겹|갈비|불고기|차돌|등심|떡갈비|보쌈|수육|바베큐|육회|돈까스|항정|목살|문어|굴찜|오징어|꼬막|생선|낙지|조개/, {ko:'고기·해산물 요리', en:'Meat & seafood dishes', ja:'肉・海鮮料理', vi:'Thịt & hải sản', id:'Daging & seafood'}],
     ['noodle', /짬뽕|짜장|국수|우동|냉면|소바|쫄면|탕수|마파/, {ko:'면·중식', en:'Noodles & Chinese', ja:'麺・中華', vi:'Mì & món Hoa', id:'Mi & masakan Tionghoa'}],
     ['western', /파스타|스테이크|리조또/, {ko:'양식·파스타', en:'Western & pasta', ja:'洋食・パスタ', vi:'Món Âu & pasta', id:'Western & pasta'}],
     ['dumpling', /만두|딤섬|교자|소룡포|꿔바/, {ko:'만두·딤섬', en:'Dumplings & dim sum', ja:'餃子・点心', vi:'Há cảo & dimsum', id:'Pangsit & dimsum'}],
-    ['snack', /찐빵|꿀빵|도넛|튀김|떡볶이|순대|빈대떡|단팥죽|김밥|팥빙수/, {ko:'분식·튀김·빵', en:'Snacks, fritters & bakery', ja:'軽食・揚げ物・パン', vi:'Ăn vặt, chiên & bánh', id:'Camilan, gorengan & roti'}],
-    ['set', /정식|비빔밥/, {ko:'정식·비빔밥', en:'Set meals & bibimbap', ja:'定食・ビビンバ', vi:'Cơm set & bibimbap', id:'Set makan & bibimbap'}],
-    ['sea', /문어|굴찜|오징어|꼬막|생선|낙지|조개/, {ko:'해산물', en:'Seafood', ja:'海鮮', vi:'Hải sản', id:'Seafood'}]
+    ['snack', /튀김|떡볶이|순대|빈대떡|김밥/, {ko:'분식·튀김', en:'Snacks & fritters', ja:'軽食・揚げ物', vi:'Ăn vặt & đồ chiên', id:'Camilan & gorengan'}],
+    ['dessert', /빵|도넛|단팥죽|팥빙수|케이크|디저트/, {ko:'디저트·빵', en:'Desserts & bakery', ja:'デザート・パン', vi:'Tráng miệng & bánh', id:'Dessert & roti'}]
   ];
   var LBL = {
     region:{ko:'지역', en:'Region', ja:'地域', vi:'Khu vực', id:'Wilayah'},
