@@ -42,5 +42,3 @@ python3 import_post.py <폴더> --dry-run                     # 읽은 내용만
 ## 구성
 - `index.html` 목록 / `r.html`+`r.js` 상세 / `style.css` 디자인 / `app.js` 검색·필터·정렬 / `data.js` 데이터 / `img/` 이미지 / `tools/import_post.py` 가져오기 도구
 
-## 식당별 이름 주소
-`python3 tools/make_pages.py` 를 실행하면 `/matjip/<식당명>/` 폴더가 만들어지고, 열면 해당 식당의 상세 페이지(`r.html?id=…`)로 이동합니다. 식당을 추가한 뒤마다 실행하세요.
