@@ -1,29 +1,83 @@
 (function(){
   var data = (window.RESTAURANTS || []).slice();
   var $ = function(id){ return document.getElementById(id); };
-  var q = $('q'), region = $('region'), source = $('source'), sort = $('sort');
-
-  function uniq(arr){ return Array.from(new Set(arr.filter(Boolean))).sort(); }
-  function fill(sel, values){
-    values.forEach(function(v){
-      var o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o);
-    });
-  }
+  var q = $('q'), sort = $('sort'), filtersBox = $('filters');
+  var sel = {region:'', prog:'', menu:''};
   var T = I18N.t;
-  var regionVals = uniq(data.map(function(d){ return d.region; }));
-  function fillSelects(){
-    var rv = region.value, sv = source.value;
-    region.innerHTML = '<option value="">' + T('all_region') + '</option>';
-    source.innerHTML = '<option value="">' + T('all_source') + '</option>';
-    regionVals.forEach(function(v){
-      var o = document.createElement('option'); o.value = v; o.textContent = I18N.region(v); region.appendChild(o);
-    });
-    uniq(data.map(function(d){ return d.program; })).forEach(function(v){
-      var src = data.filter(function(d){ return d.program === v; })[0];
-      var o = document.createElement('option'); o.value = v; o.textContent = I18N.loc(src).program; source.appendChild(o);
-    });
-    region.value = rv; source.value = sv;
+
+  // 방송 프로그램: 회차·코너명을 떼고 시리즈 단위로 묶는다
+  var PROGS = [
+    ['dongne', /동네\s*한\s*바퀴/, {ko:'동네 한 바퀴', en:'Dongne Hanbakwi', ja:'ドンネ・ハンバクイ', vi:'Dongne Hanbakwi', id:'Dongne Hanbakwi'}],
+    ['today', /생방송\s*투데이/, {ko:'생방송 투데이', en:'Saengbangsong Today', ja:'生放送トゥデイ', vi:'Saengbangsong Today', id:'Saengbangsong Today'}],
+    ['jeongbo', /생생정보/, {ko:'생생정보', en:'Saengsaeng Jeongbo', ja:'生生情報', vi:'Saengsaeng Jeongbo', id:'Saengsaeng Jeongbo'}],
+    ['master', /생활의\s*달인/, {ko:'생활의 달인', en:'Master of Living', ja:'生活の達人', vi:'Cao thủ đời sống', id:'Master of Living'}],
+    ['todayn', /오늘\s*N/, {ko:'오늘N', en:'Today N', ja:'オヌルN', vi:'Today N', id:'Today N'}],
+    ['hyunmoo', /전현무계획/, {ko:'전현무계획', en:"Jun Hyun-moo Plan", ja:'チョン・ヒョンム計画', vi:'Kế hoạch Jun Hyun-moo', id:'Rencana Jun Hyun-moo'}],
+    ['mibun', /미운\s*우리\s*새끼/, {ko:'미운 우리 새끼', en:'My Little Old Boy', ja:'私の小さな憎いやつ', vi:'My Little Old Boy', id:'My Little Old Boy'}],
+    ['nae', /내고향/, {ko:'6시 내고향', en:'6 O\'Clock My Hometown', ja:'6時 わが故郷', vi:'6 giờ quê hương tôi', id:'Kampung Halamanku Pukul 6'}]
+  ];
+  // 메뉴 종류: 메뉴 이름과 식당 이름의 키워드로 분류 (여러 종류에 속할 수 있음)
+  var MENUS = [
+    ['soup', /국밥|탕|해장|육개장|순댓국|술국|곰탕|전골/, {ko:'국밥·탕', en:'Soups & gukbap', ja:'クッパ・スープ', vi:'Canh & gukbap', id:'Sup & gukbap'}],
+    ['meat', /삼겹|갈비|불고기|차돌|등심|떡갈비|보쌈|수육|바베큐|육회|돈까스|항정|목살/, {ko:'고기·구이·찜', en:'Meat & BBQ', ja:'肉料理・焼肉', vi:'Thịt & nướng', id:'Daging & panggang'}],
+    ['noodle', /짬뽕|짜장|국수|우동|냉면|소바|쫄면|탕수|마파/, {ko:'면·중식', en:'Noodles & Chinese', ja:'麺・中華', vi:'Mì & món Hoa', id:'Mi & masakan Tionghoa'}],
+    ['western', /파스타|스테이크|리조또/, {ko:'양식·파스타', en:'Western & pasta', ja:'洋食・パスタ', vi:'Món Âu & pasta', id:'Western & pasta'}],
+    ['dumpling', /만두|딤섬|교자|소룡포|꿔바/, {ko:'만두·딤섬', en:'Dumplings & dim sum', ja:'餃子・点心', vi:'Há cảo & dimsum', id:'Pangsit & dimsum'}],
+    ['snack', /찐빵|꿀빵|도넛|튀김|떡볶이|순대|빈대떡|단팥죽|김밥|팥빙수/, {ko:'분식·튀김·빵', en:'Snacks, fritters & bakery', ja:'軽食・揚げ物・パン', vi:'Ăn vặt, chiên & bánh', id:'Camilan, gorengan & roti'}],
+    ['set', /정식|비빔밥/, {ko:'정식·비빔밥', en:'Set meals & bibimbap', ja:'定食・ビビンバ', vi:'Cơm set & bibimbap', id:'Set makan & bibimbap'}],
+    ['sea', /문어|굴찜|오징어|꼬막|생선|낙지|조개/, {ko:'해산물', en:'Seafood', ja:'海鮮', vi:'Hải sản', id:'Seafood'}]
+  ];
+  var LBL = {
+    region:{ko:'지역', en:'Region', ja:'地域', vi:'Khu vực', id:'Wilayah'},
+    prog:{ko:'방송 프로그램', en:'TV program', ja:'放送番組', vi:'Chương trình TV', id:'Program TV'},
+    menu:{ko:'메뉴 종류', en:'Menu type', ja:'メニュー', vi:'Loại món', id:'Jenis menu'},
+    all:{ko:'전체', en:'All', ja:'すべて', vi:'Tất cả', id:'Semua'}
+  };
+  function L(o){ return o[I18N.get()] || o.ko; }
+
+  function progOf(d){
+    for (var i = 0; i < PROGS.length; i++) if (PROGS[i][1].test(d.program || '')) return PROGS[i][0];
+    return d.program || '';
   }
+  function menusOf(d){
+    var s = (d.name || '') + ' ' + (d.menu || []).join(' ');
+    return MENUS.filter(function(m){ return m[1].test(s); }).map(function(m){ return m[0]; });
+  }
+  data.forEach(function(d){ d._prog = progOf(d); d._menus = menusOf(d); });
+
+  function count(key, val){
+    return data.filter(function(d){
+      return (key === 'region' || !sel.region || d.region === sel.region) &&
+             (key === 'prog' || !sel.prog || d._prog === sel.prog) &&
+             (key === 'menu' || !sel.menu || d._menus.indexOf(sel.menu) !== -1) &&
+             (key === 'region' ? d.region === val : key === 'prog' ? d._prog === val : d._menus.indexOf(val) !== -1);
+    }).length;
+  }
+  function chip(key, val, label, n, on){
+    return '<button type="button" class="chip' + (on ? ' on' : '') + '" data-k="' + key + '" data-v="' + esc(val) + '" aria-pressed="' + (on ? 'true' : 'false') + '">' +
+      esc(label) + (n != null ? ' <small>' + n + '</small>' : '') + '</button>';
+  }
+  function row(key, title, items){
+    return '<div class="frow" role="group" aria-label="' + esc(title) + '"><span class="flabel">' + esc(title) + '</span><div class="chips">' +
+      chip(key, '', L(LBL.all), null, !sel[key]) + items.join('') + '</div></div>';
+  }
+  function fillFilters(){
+    var regs = Array.from(new Set(data.map(function(d){ return d.region; }).filter(Boolean))).sort();
+    var rItems = regs.map(function(v){ return [v, count('region', v)]; }).filter(function(x){ return x[1] || sel.region === x[0]; })
+      .map(function(x){ return chip('region', x[0], I18N.region(x[0]), x[1], sel.region === x[0]); });
+    var pItems = PROGS.map(function(p){ return [p, count('prog', p[0])]; }).filter(function(x){ return x[1] || sel.prog === x[0][0]; })
+      .map(function(x){ return chip('prog', x[0][0], L(x[0][2]), x[1], sel.prog === x[0][0]); });
+    var mItems = MENUS.map(function(m){ return [m, count('menu', m[0])]; }).filter(function(x){ return x[1] || sel.menu === x[0][0]; })
+      .map(function(x){ return chip('menu', x[0][0], L(x[0][2]), x[1], sel.menu === x[0][0]); });
+    filtersBox.innerHTML = row('region', L(LBL.region), rItems) + row('prog', L(LBL.prog), pItems) + row('menu', L(LBL.menu), mItems);
+  }
+  filtersBox.addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('.chip') : null;
+    if (!b) return;
+    var k = b.getAttribute('data-k'), v = b.getAttribute('data-v');
+    sel[k] = (sel[k] === v) ? '' : v;
+    render();
+  });
 
   function esc(s){
     return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
@@ -63,8 +117,9 @@
   function render(){
     var kw = q.value.trim().toLowerCase();
     var list = data.filter(function(d){
-      if (region.value && d.region !== region.value) return false;
-      if (source.value && d.program !== source.value) return false;
+      if (sel.region && d.region !== sel.region) return false;
+      if (sel.prog && d._prog !== sel.prog) return false;
+      if (sel.menu && d._menus.indexOf(sel.menu) === -1) return false;
       if (!kw) return true;
       var l = I18N.loc(d);
       var hay = [d.name, d.program, d.episode, d.address, (d.menu || []).join(' '), l.name, l.program, l.episode, (l.menu || []).join(' ')].join(' ').toLowerCase();
@@ -74,14 +129,14 @@
       if (sort.value === 'name') return String(I18N.loc(a).name).localeCompare(String(I18N.loc(b).name), I18N.get());
       return String(b.date || '').localeCompare(String(a.date || ''));
     });
+    fillFilters();
     $('list').innerHTML = list.map(card).join('');
     $('empty').hidden = list.length > 0;
     $('count').textContent = T('count', {n:list.length});
     document.title = T('title');
   }
 
-  [q, region, source, sort].forEach(function(el){ el.addEventListener('input', render); });
-  I18N.onChange(function(){ fillSelects(); render(); });
-  fillSelects();
+  [q, sort].forEach(function(el){ el.addEventListener('input', render); });
+  I18N.onChange(render);
   render();
 })();

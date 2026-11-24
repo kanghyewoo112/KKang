@@ -185,3 +185,14 @@ mark.chk{
 .lang button:hover{background:#fff}
 .lang button.on{background:var(--ink);color:#fff}
 .lang button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+
+/* 필터 칩: 지역 / 방송 프로그램 / 메뉴 종류 */
+.filters{max-width:1000px;margin:14px auto 4px;text-align:left}
+.frow{display:flex;gap:10px;align-items:flex-start;margin:8px 0}
+.flabel{flex:none;width:92px;padding-top:6px;font-weight:700;font-size:14px;opacity:.85}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:14px;line-height:1.2;padding:7px 12px;border-radius:999px;border:1.5px solid rgba(0,0,0,.35);background:#fff;color:#222;cursor:pointer}
+.chip small{opacity:.65;font-size:12px;margin-left:2px}
+.chip.on{background:#222;color:#fff;border-color:#222}
+.chip:focus-visible{outline:3px solid #c8201e;outline-offset:2px}
+@media (max-width:560px){.frow{flex-direction:column;gap:2px}.flabel{width:auto;padding-top:0}}
